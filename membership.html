@@ -72,7 +72,7 @@
 </div>
 
 <!-- MAIN CONTENT -->
-<div style="max-width: 1200px; margin: 0 auto; padding: 48px 32px 96px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<div class="mobile-stack" style="max-width: 1200px; margin: 0 auto; padding: 48px 32px 96px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
 
   <!-- LEFT COLUMN: Combined Sidebar -->
   <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 24px">
@@ -150,7 +150,7 @@
     </div>
 
     <!---------------------- GENERAL MEMBERSHIP FORM ---------------------->
-    <form id="form-general" style="padding: 36px; border: 1px solid rgba(86,174,255,0.3); border-radius: 18px; background: rgba(0,73,149,0.18); display: flex; flex-direction: column; gap: 24px">
+    <form id="form-general" class="mobile-pad" style="padding: 36px; border: 1px solid rgba(86,174,255,0.3); border-radius: 18px; background: rgba(0,73,149,0.18); display: flex; flex-direction: column; gap: 24px">
       <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 26px">General Membership Application</h2>
 
       <div>
@@ -220,7 +220,7 @@
     </form>
 
     <!------------------- PRIVACY MEMBERSHIP FORM ---------------------->
-    <form id="form-privacy" style="display: none; padding: 36px; border: 1px solid rgba(86,174,255,0.3); border-radius: 18px; background: rgba(0,73,149,0.18); flex-direction: column; gap: 24px">
+    <form class="mobile-pad" id="form-privacy" style="display: none; padding: 36px; border: 1px solid rgba(86,174,255,0.3); border-radius: 18px; background: rgba(0,73,149,0.18); flex-direction: column; gap: 24px">
       <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 26px">Privacy Membership Application</h2>
 
       <div>
@@ -328,16 +328,36 @@
       fetch("footer.html").then(res => res.text())
     ])
     .then(([headerData, footerData]) => {
+     // Inject Header
       if (headerPlaceholder) {
         headerPlaceholder.innerHTML = headerData;
+
+        // --- MOBILE MENU TOGGLE LOGIC ---
+        const mobileBtn = document.getElementById("mobile-menu-toggle");
+        const navLinksWrapper = document.getElementById("nav-links");
+        if (mobileBtn && navLinksWrapper) {
+          mobileBtn.addEventListener("click", () => {
+            navLinksWrapper.classList.toggle("active");
+          });
+        }
+        // --------------------------------
+
+        // Auto-highlight active nav link
         let currentPage = window.location.pathname.split("/").pop();
         if (currentPage === "" || currentPage === "/") currentPage = "index.html";
+
         const navLinks = headerPlaceholder.querySelectorAll(".nav-link");
         navLinks.forEach(link => {
-          if (link.getAttribute("href") === currentPage) link.classList.add("active");
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
         });
       }
-      if (footerPlaceholder) footerPlaceholder.innerHTML = footerData;
+
+      // Inject Footer
+      if (footerPlaceholder) {
+        footerPlaceholder.innerHTML = footerData;
+      }
     })
     .catch(error => console.error("Error loading components:", error));
   });

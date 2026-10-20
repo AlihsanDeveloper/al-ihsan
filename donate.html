@@ -42,7 +42,7 @@
   
   <!-- LEFT: ONE-TIME DONATION (bKash & Bank) -->
   <div style="flex: 1 1 540px; display: flex; flex-direction: column; gap: 24px">
-    
+
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px;">
       <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(86,174,255,0.15); display: flex; align-items: center; justify-content: center;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#56aeff" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"></path></svg>
@@ -59,15 +59,22 @@
         </div>
         <div style="background: rgba(240,240,234,0.1); padding: 6px 14px; border-radius: 999px; font-size: 12px; color: rgba(240,240,234,0.9); font-weight: 700;">Send Money Only</div>
       </div>
-      
-      <div style="background: #03032e; border: 1px solid rgba(86,174,255,0.25); border-radius: 10px; padding: 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <div style="font-family: 'JetBrains Mono', monospace; font-size: 20px; color: #f0f0ea; letter-spacing: 1px;">+880 1640-835076</div>
-        <button class="copy-btn" onclick="copyText('+8801640835076', this)">
+
+            <div style="background: #03032e; border: 1px solid rgba(86,174,255,0.25); border-radius: 10px; padding: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+
+        <!-- Number: slightly responsive, forced single line -->
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: clamp(16px, 4.5vw, 20px); color: #f0f0ea; letter-spacing: 1px; white-space: nowrap;">
+          +880 1640-835076
+        </div>
+
+        <!-- Copy Button -->
+        <button class="copy-btn" onclick="copyText('+8801640835076', this)" style="flex-shrink: 0;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
           Copy
         </button>
+
       </div>
-      
+
       <p style="margin: 0; font-size: 14.5px; color: rgba(240,240,234,0.8); line-height: 1.5;">
         Please use the <strong>"Send Money"</strong> feature on your bKash app. (Do not use "Payment"). <br>
         <em style="color: #56aeff;">Note: Please mention "Donation" or "Zakah" in the reference.</em>
@@ -208,6 +215,16 @@ function copyText(text, btn) {
       if (headerPlaceholder) {
         headerPlaceholder.innerHTML = headerData;
 
+        // --- MOBILE MENU TOGGLE LOGIC ---
+        const mobileBtn = document.getElementById("mobile-menu-toggle");
+        const navLinksWrapper = document.getElementById("nav-links");
+        if (mobileBtn && navLinksWrapper) {
+          mobileBtn.addEventListener("click", () => {
+            navLinksWrapper.classList.toggle("active");
+          });
+        }
+        // --------------------------------
+
         // Auto-highlight active nav link
         let currentPage = window.location.pathname.split("/").pop();
         if (currentPage === "" || currentPage === "/") currentPage = "index.html";
@@ -224,6 +241,7 @@ function copyText(text, btn) {
       if (footerPlaceholder) {
         footerPlaceholder.innerHTML = footerData;
       }
+
     })
     .catch(error => console.error("Error loading components:", error));
   });

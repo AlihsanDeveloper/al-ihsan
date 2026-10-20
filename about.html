@@ -38,7 +38,7 @@
 
 <!-- ═══════════════════════ SPLIT HERO ═══════════════════════ -->
 <div style="background-color: #060644; background-image: linear-gradient(rgba(86,174,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(86,174,255,0.07) 1px, transparent 1px), radial-gradient(circle at 80% 25%, rgba(0,119,178,0.35), transparent 55%); background-size: 48px 48px, 48px 48px, 100% 100%; border-bottom: 1px solid rgba(86,174,255,0.18)">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 64px 32px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
+  <div class="mobile-stack" style="max-width: 1200px; margin: 0 auto; padding: 64px 32px 80px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px">
 
     <!-- Left: Text & Stats -->
     <div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
@@ -234,7 +234,7 @@
 
 <!-- ═══════════════════════ SPLIT INSPIRING STORY ═══════════════════════ -->
 <div style="background: rgba(0,73,149,0.12); border-top: 1px solid rgba(86,174,255,0.15); border-bottom: 1px solid rgba(86,174,255,0.15);">
-  <div style="max-width: 1200px; margin: 0 auto; padding: 72px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px;">
+  <div class="mobile-pad" style="max-width: 1200px; margin: 0 auto; padding: 72px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px;">
 
     <!-- Left: Text -->
     <div style="flex: 1 1 460px; display: flex; flex-direction: column; gap: 16px;">
@@ -286,8 +286,19 @@
       fetch("footer.html").then(res => res.text())
     ])
     .then(([headerData, footerData]) => {
+     // Inject Header
       if (headerPlaceholder) {
         headerPlaceholder.innerHTML = headerData;
+
+        // --- MOBILE MENU TOGGLE LOGIC ---
+        const mobileBtn = document.getElementById("mobile-menu-toggle");
+        const navLinksWrapper = document.getElementById("nav-links");
+        if (mobileBtn && navLinksWrapper) {
+          mobileBtn.addEventListener("click", () => {
+            navLinksWrapper.classList.toggle("active");
+          });
+        }
+        // --------------------------------
 
         // Auto-highlight active nav link
         let currentPage = window.location.pathname.split("/").pop();
@@ -300,6 +311,8 @@
           }
         });
       }
+
+      // Inject Footer
       if (footerPlaceholder) {
         footerPlaceholder.innerHTML = footerData;
       }
