@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Ihsan · Frequently Asked Questions</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #060644; color: #f0f0ea; font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.6; }
+  a { color: #56aeff; text-decoration: none; transition: 0.2s ease; }
+  a:hover { color: #f0f0ea; }
+
+  /* Filter Pills */
+  .filter-pill {
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(3,3,46,0.6);
+    border: 1px solid rgba(86,174,255,0.2);
+    color: rgba(240,240,234,0.8);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+  }
+  .filter-pill:hover { border-color: rgba(86,174,255,0.5); color: #f0f0ea; }
+  .filter-pill.active {
+    background: #56aeff;
+    border-color: #56aeff;
+    color: #060644;
+    font-weight: 700;
+  }
+
+  /* FAQ Grid & Cards */
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .faq-card {
+    background: #03032e;
+    border: 1px solid rgba(86,174,255,0.2);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+  .faq-card:hover {
+    border-color: rgba(86,174,255,0.5);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  .faq-badge {
+    display: inline-block;
+    background: rgba(86,174,255,0.1);
+    color: #56aeff;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    align-self: flex-start;
+  }
+
+  .faq-question {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: #f0f0ea;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+  }
+
+  /* Text Truncation */
+  .faq-answer {
+    font-size: 14.5px;
+    color: rgba(240,240,234,0.7);
+    line-height: 1.6;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  /* Expanded State */
+  .faq-card.expanded .faq-answer {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+
+  .faq-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #56aeff;
+    cursor: pointer;
+    align-self: flex-start;
+    user-select: none;
+  }
+  .faq-read-more:hover { color: #f0f0ea; }
+
+  .faq-read-more svg {
+    transition: transform 0.3s ease;
+  }
+  .faq-card.expanded .faq-read-more svg {
+    transform: rotate(180deg);
+  }
+
+  /* Search Input */
+  .search-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(86,174,255,0.3);
+    background: #03032e;
+    color: #f0f0ea;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  .search-input:focus {
+    border-color: #56aeff;
+    box-shadow: 0 0 15px rgba(86,174,255,0.2);
+  }
+</style>
+</head>
+<body>
+<div style="width: 100%; background: #060644; color: #f0f0ea; font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.6">
+
+<!-- NAV INJECTION -->
+<div id="header-placeholder" style="position: sticky; top: 0; z-index: 100;"></div>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<div style="background-color: #060644; background-image: linear-gradient(rgba(86,174,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(86,174,255,0.07) 1px, transparent 1px); background-size: 48px 48px; border-bottom: 1px solid rgba(86,174,255,0.18)">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 64px 32px 48px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 32px;">
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #56aeff">Help Center</div>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 5vw, 48px); line-height: 1.1; letter-spacing: -0.02em">Frequently Asked Questions</h1>
+      <p style="margin: 0; color: rgba(240,240,234,0.7); font-size: 16px; max-width: 500px;">Find answers to common questions about our membership, donation process, and operations.</p>
+    </div>
+
+    <!-- Live Search -->
+    <div>
+      <input type="text" id="faq-search" class="search-input" placeholder="Search questions or keywords...">
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
+<div style="max-width: 1200px; margin: 0 auto; padding: 48px 32px 96px;">
+
+  <!-- Filters -->
+  <div id="faq-filters" style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px;">
+    <button class="filter-pill active" data-filter="all">All Topics</button>
+    <button class="filter-pill" data-filter="General">General</button>
+    <button class="filter-pill" data-filter="Membership">Membership</button>
+    <button class="filter-pill" data-filter="Donations">Donations</button>
+    <button class="filter-pill" data-filter="Ramadan">Ramadan</button>
+  </div>
+
+  <!-- Grid Container -->
+  <div id="faq-container" class="faq-grid">
+    <!-- Cards will be injected by JS here -->
+  </div>
+
+  <!-- No Results Message -->
+  <div id="no-results" style="display: none; text-align: center; padding: 64px 0;">
+    <div style="font-size: 40px; margin-bottom: 16px;">🔍</div>
+    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; margin-bottom: 8px;">No results found</h3>
+    <p style="color: rgba(240,240,234,0.6);">We couldn't find any FAQs matching your search. Try different keywords or <a href="mailto:alihsanfoundation219@gmail.com" style="color: #56aeff;">contact us</a> directly.</p>
+  </div>
+
+</div>
+
+<!-- FOOTER INJECTION -->
+<div id="footer-placeholder"></div>
+
+<!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+<script>
+  // 1. FAQ DATA
+  const faqData = [
+    {
+      category: "General",
+      question: "What is Al Ihsan?",
+      answer: "Al Ihsan is a grassroots Islamic charity dedicated to providing dignified, transparent, and immediate support to those in need. We are member-powered, meaning our operations are fueled by small, consistent weekly contributions from our community, allowing us to respond quickly to verified emergencies and run our flagship Ramadan campaigns."
+    },
+    {
+      category: "Membership",
+      question: "How does the Weekly Scheme work?",
+      answer: "Members commit to contributing 10 Taka every Friday. This consistent stream of small donations creates a reliable pool of funds that allows us to respond immediately to verified medical and educational emergencies, while also building the core reserve for our annual Ramadan Grocery Campaign."
+    },
+    {
+      category: "Donations",
+      question: "Is my donation Zakah-eligible?",
+      answer: "Yes. We have a strict Zakah policy. Zakah funds are strictly segregated from general Sadaqah funds, and we only distribute Zakah to individuals who meet the specific Shariah criteria (e.g., the poor, the needy, the debt-ridden). 100% of your Zakah reaches the eligible recipient."
+    },
+    {
+      category: "Membership",
+      question: "What is the difference between General and Privacy Membership?",
+      answer: "General Membership is the standard tier where your name is recognized among our active team. Privacy Membership offers the exact same impact and benefits, but allows you to use an anonymous alias on all rosters, keeping your identity completely hidden from the public and other members."
+    },
+    {
+      category: "Membership",
+      question: "Can I cancel my membership?",
+      answer: "Yes, you can exit the Weekly Scheme at any point by providing written notice to the administrative committee. However, as stated in our Terms & Conditions, withdrawal does not entitle you to reclaim any funds that have already been donated."
+    },
+    {
+      category: "Donations",
+      question: "Will I receive a receipt for my donation?",
+      answer: "Yes. For Weekly Scheme members, our automated system (via Supabase and Brevo) sends real-time email receipts every time a contribution is logged. For one-time donors, if you require a manual receipt, please email a screenshot of your transaction to our finance team."
+    },
+    {
+      category: "Donations",
+      question: "Are donations refundable?",
+      answer: "No. All donations made to Al Ihsan are strictly charitable, irrevocable, and non-refundable. Members and donors shall not claim, demand, or attempt to withdraw any donated amount under any circumstance."
+    },
+    {
+      category: "Ramadan",
+      question: "What is the Ramadan Campaign?",
+      answer: "It is our largest annual program. Every year, we unite members and open donors to purchase, pack, and distribute massive-scale grocery packages to families in need across the region. Each package provides a family with a full month of essential food items."
+    },
+    {
+      category: "Ramadan",
+      question: "Can I volunteer to pack or distribute packages?",
+      answer: "Absolutely! We rely heavily on volunteers for our Ramadan operations. When the campaign goes live (usually a few weeks before Ramadan), we will post a volunteer registration link on the Ramadan Campaign page and our social media channels."
+    }
+  ];
+
+  const container = document.getElementById('faq-container');
+  const noResults = document.getElementById('no-results');
+  const searchInput = document.getElementById('faq-search');
+  const filterBtns = document.querySelectorAll('.filter-pill');
+
+  let currentFilter = 'all';
+  let currentSearch = '';
+
+  // 2. RENDER FUNCTION
+  function renderFAQs() {
+    // Filter logic
+    const filteredData = faqData.filter(faq => {
+      const matchesFilter = currentFilter === 'all' || faq.category === currentFilter;
+      const matchesSearch = faq.question.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                            faq.answer.toLowerCase().includes(currentSearch.toLowerCase());
+      return matchesFilter && matchesSearch;
+    });
+
+    // Clear container
+    container.innerHTML = '';
+
+    if (filteredData.length === 0) {
+      noResults.style.display = 'block';
+    } else {
+      noResults.style.display = 'none';
+
+      // Generate HTML for each card
+      filteredData.forEach(faq => {
+        const card = document.createElement('div');
+        card.className = 'faq-card';
+        card.innerHTML = `
+          <div class="faq-badge">${faq.category}</div>
+          <h3 class="faq-question">${faq.question}</h3>
+          <p class="faq-answer">${faq.answer}</p>
+          <div class="faq-read-more">
+            <span>Read more</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+        `;
+
+        // Add click event to expand/collapse
+        const readMoreBtn = card.querySelector('.faq-read-more');
+        readMoreBtn.addEventListener('click', () => {
+          card.classList.toggle('expanded');
+          const textSpan = readMoreBtn.querySelector('span');
+          if (card.classList.contains('expanded')) {
+            textSpan.textContent = 'Show less';
+          } else {
+            textSpan.textContent = 'Read more';
+          }
+        });
+
+        container.appendChild(card);
+      });
+    }
+  }
+
+  // 3. EVENT LISTENERS
+  // Filter Buttons
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active class
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Update state and re-render
+      currentFilter = btn.getAttribute('data-filter');
+      renderFAQs();
+    });
+  });
+
+  // Search Input (with a small debounce for performance)
+  let debounceTimer;
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(() => {
+      currentSearch = e.target.value;
+      renderFAQs();
+    }, 300);
+  });
+
+  // 4. INITIALIZE
+  renderFAQs();
+
+  // --- HEADER/FOOTER INJECTION ---
+  document.addEventListener("DOMContentLoaded", () => {
+    const favicon = document.createElement('link');
+    favicon.rel = 'icon'; favicon.type = 'image/png'; favicon.href = 'images/logo.png'; document.head.appendChild(favicon);
+
+    const headerPlaceholder = document.getElementById("header-placeholder");
+    const footerPlaceholder = document.getElementById("footer-placeholder");
+
+    Promise.all([
+      fetch("header.html").then(res => res.text()),
+      fetch("footer.html").then(res => res.text())
+    ])
+    .then(([headerData, footerData]) => {
+      if (headerPlaceholder) {
+        headerPlaceholder.innerHTML = headerData;
+        let currentPage = window.location.pathname.split("/").pop();
+        if (currentPage === "" || currentPage === "/") currentPage = "index.html";
+        const navLinks = headerPlaceholder.querySelectorAll(".nav-link");
+        navLinks.forEach(link => {
+          if (link.getAttribute("href") === currentPage) link.classList.add("active");
+        });
+      }
+      if (footerPlaceholder) footerPlaceholder.innerHTML = footerData;
+    })
+    .catch(error => console.error("Error loading components:", error));
+  });
+</script>
+
+</div>
+</body>
+</html>

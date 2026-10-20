@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Ihsan · Become a Member</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<!-- SUPABASE CDN MUST BE LOADED BEFORE CUSTOM SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #060644; color: #f0f0ea; font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.6; }
+  a { color: #56aeff; text-decoration: none; transition: 0.2s ease; }
+  a:hover { color: #f0f0ea; }
+
+  input, select, textarea { width: 100%; padding: 13px 16px; border-radius: 10px; border: 1px solid rgba(86,174,255,0.35); background: #03032e; color: #f0f0ea; font-family: 'DM Sans', sans-serif; font-size: 15px; outline: none; transition: border-color 0.2s; }
+  input:focus, select:focus, textarea:focus { border-color: #56aeff; }
+  input::placeholder, textarea::placeholder { color: rgba(240,240,234,0.4); }
+  .form-label { display: block; margin-bottom: 6px; font-size: 15px; font-weight: 500; }
+  .req-star { color: #56aeff; }
+
+  /* Accordion Styles */
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] summary svg { transform: rotate(180deg); }
+  summary svg { transition: transform 0.2s ease; }
+
+  /* Sidebar custom scrollbar */
+  .tc-scroll::-webkit-scrollbar { width: 6px; }
+  .tc-scroll::-webkit-scrollbar-track { background: #03032e; border-radius: 8px; }
+  .tc-scroll::-webkit-scrollbar-thumb { background: rgba(86,174,255,0.3); border-radius: 8px; }
+  .tc-scroll::-webkit-scrollbar-thumb:hover { background: rgba(86,174,255,0.6); }
+</style>
+</head>
+<body>
+<div style="width: 100%; background: #060644; color: #f0f0ea; font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.6">
+
+<!-- NAV INJECTION -->
+<div id="header-placeholder" style="position: sticky; top: 0; z-index: 100;"></div>
+
+<!-- COMPACT HEADER WITH TABS -->
+<div style="background-color: #060644; background-image: linear-gradient(rgba(86,174,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(86,174,255,0.07) 1px, transparent 1px), radial-gradient(circle at 80% 25%, rgba(0,119,178,0.35), transparent 55%); background-size: 48px 48px, 48px 48px, 100% 100%; border-bottom: 1px solid rgba(86,174,255,0.18)">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 40px 32px 32px; display: flex; flex-direction: column; gap: 24px">
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #56aeff">Weekly Scheme · Ramadan to Ramadan</div>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 42px; line-height: 1.08; letter-spacing: -0.02em">Become a Weekly Scheme Member</h1>
+    </div>
+
+    <!-- TABS -->
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; max-width: 800px; margin-top: 8px;">
+      <button type="button" id="tab-general" onclick="selectMembership('general')" style="flex: 1 1 240px; padding: 18px 22px; border-radius: 14px; border: 2px solid #56aeff; background: rgba(0,73,149,0.38); color: #f0f0ea; text-align: left; cursor: pointer; font-family: inherit; transition: all 0.2s ease;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #56aeff; text-transform: uppercase; letter-spacing: 0.14em">Form 01</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; margin-top: 4px">General Membership</div>
+        <div style="font-size: 13px; color: rgba(240,240,234,0.75); margin-top: 4px">Standard weekly scheme with full team recognition.</div>
+      </button>
+      <button type="button" id="tab-privacy" onclick="selectMembership('privacy')" style="flex: 1 1 240px; padding: 18px 22px; border-radius: 14px; border: 1.5px solid rgba(86,174,255,0.28); background: rgba(0,73,149,0.14); color: #f0f0ea; text-align: left; cursor: pointer; font-family: inherit; transition: all 0.2s ease;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #56aeff; text-transform: uppercase; letter-spacing: 0.14em">Form 02</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; margin-top: 4px">Privacy Membership</div>
+        <div style="font-size: 13px; color: rgba(240,240,234,0.75); margin-top: 4px">Anonymous alias on rosters with full private email alerts.</div>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div style="max-width: 1200px; margin: 0 auto; padding: 48px 32px 96px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+
+  <!-- LEFT COLUMN: Combined Sidebar -->
+  <div style="flex: 1 1 340px; display: flex; flex-direction: column; gap: 24px">
+
+    <div style="padding: 32px; border: 1px solid rgba(86,174,255,0.28); border-radius: 18px; background: rgba(0,73,149,0.2); display: flex; flex-direction: column; gap: 24px">
+
+      <!-- Form Description Section -->
+      <div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #56aeff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#56aeff" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          Membership Details
+        </div>
+        <p style="margin: 0; font-size: 15px; color: rgba(240,240,234,0.9); line-height: 1.6;">
+          The Al Ihsan Weekly Scheme is a structured charitable program where members contribute <strong style="color: #f0f0ea; background: rgba(86,174,255,0.2); padding: 2px 6px; border-radius: 4px;">10 Taka every Friday</strong>. By registering, you agree to make weekly contributions and abide by the scheme's terms.
+        </p>
+      </div>
+
+      <div style="height: 1px; background: rgba(86,174,255,0.2);"></div>
+
+      <!-- Benefits Section -->
+      <div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #56aeff; margin-bottom: 16px;">Why Join the Scheme?</div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div style="display: flex; gap: 14px; align-items: flex-start;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(86,174,255,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#56aeff" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 15px;">Real-Time Mail Alerts</div>
+              <div style="font-size: 13.5px; color: rgba(240,240,234,0.7); line-height: 1.5;">Instant email notification every time a new contribution is made.</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; align-items: flex-start;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(86,174,255,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#56aeff" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 15px;">Monthly Newsletter</div>
+              <div style="font-size: 13.5px; color: rgba(240,240,234,0.7); line-height: 1.5;">Exclusive breakdowns monthly progress and financial status.</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; align-items: flex-start;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(86,174,255,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#56aeff" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path></svg>
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 15px;">Continuous Impact</div>
+              <div style="font-size: 13.5px; color: rgba(240,240,234,0.7); line-height: 1.5;">52 weeks of supporting verified emergency and Ramadan relief.</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Security Note -->
+      <div style="background: rgba(3,3,46,0.6); padding: 16px; border-radius: 10px; border: 1px dashed rgba(86,174,255,0.3); display: flex; gap: 12px; align-items: center; margin-top: 4px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#56aeff" stroke-width="2" style="flex-shrink: 0;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+        <div style="font-size: 13px; color: rgba(240,240,234,0.8); line-height: 1.4;">
+          <strong style="color: #56aeff;">Safe & Secure:</strong> Your information is strictly protected and used solely for Al Ihsan operations.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- RIGHT COLUMN: Interactive Forms -->
+  <div style="flex: 2 1 560px; display: flex; flex-direction: column; gap: 28px">
+
+    <div id="form-alert" style="display:none; padding: 20px 24px; border-radius: 12px; border: 1.5px solid #56aeff; background: rgba(0,119,178,0.3)">
+      <strong>JazakAllahu Khayran!</strong> Your membership form has been submitted. Check your email for confirmation.
+    </div>
+
+    <!---------------------- GENERAL MEMBERSHIP FORM ---------------------->
+    <form id="form-general" style="padding: 36px; border: 1px solid rgba(86,174,255,0.3); border-radius: 18px; background: rgba(0,73,149,0.18); display: flex; flex-direction: column; gap: 24px">
+      <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 26px">General Membership Application</h2>
+
+      <div>
+        <label class="form-label">Name <span class="req-star">*</span></label>
+        <input type="text" name="fullName" placeholder="e.g., FARZANA AHMED" required>
+      </div>
+
+      <!-- Email & OTP -->
+      <div>
+        <label class="form-label">Email <span class="req-star">*</span></label>
+        <div style="display: flex; gap: 10px;">
+          <input type="email" id="general-email" placeholder="example@mail.com" required>
+          <button type="button" id="general-send-btn" style="padding: 0 16px; background: #56aeff; color: #060644; border: none; border-radius: 10px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; cursor: pointer; white-space: nowrap; transition: 0.2s;">Send Code</button>
+        </div>
+      </div>
+
+      <div id="general-otp-section" style="display: none;">
+        <label class="form-label">Verification Code <span class="req-star">*</span></label>
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="general-otp" placeholder="Enter 6-digit code" maxlength="6" style="letter-spacing: 4px; font-family: 'JetBrains Mono', monospace;">
+          <button type="button" id="general-verify-btn" style="padding: 0 16px; background: #4ade80; color: #060644; border: none; border-radius: 10px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; cursor: pointer; white-space: nowrap; transition: 0.2s;">Verify</button>
+        </div>
+        <div id="general-verify-msg" style="font-size: 13px; margin-top: 6px; display: none;"></div>
+      </div>
+
+      <div>
+        <label class="form-label">Address <span class="req-star">*</span></label>
+        <textarea name="address" rows="3" placeholder="e.g., House 12, Road 3, Chittagong" required></textarea>
+      </div>
+
+      <div>
+        <label class="form-label">Phone number <span class="req-star">*</span></label>
+        <div style="font-size: 13px; color: rgba(240,240,234,0.6); margin-bottom: 6px; margin-top: -4px;">Must include +88 at the beginning</div>
+        <input type="tel" name="phone" placeholder="+880 17XX-XXXXXX" required>
+      </div>
+
+      <!-- T&C -->
+      <div>
+        <label class="form-label">Check our Terms & Conditions <span class="req-star">*</span></label>
+        <details style="margin-bottom: 16px; border: 1px solid rgba(86,174,255,0.25); border-radius: 10px; background: #03032e; overflow: hidden;">
+          <summary style="padding: 14px 20px; cursor: pointer; font-weight: 600; color: #56aeff; display: flex; justify-content: space-between; align-items: center; user-select: none;">
+            Click to read full Terms & Conditions
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="tc-scroll" style="padding: 16px 20px; border-top: 1px solid rgba(86,174,255,0.25); font-size: 13.5px; color: rgba(240,240,234,0.8); line-height: 1.6; max-height: 250px; overflow-y: auto;">
+            <p style="margin-top:0"><strong>Preamble</strong><br>Al Ihsan is a charitable organisation guided by the principles of Islamic finance. In order to preserve the integrity of our operations and ensure alignment with our core values, the following policies and terms govern all member participation.</p>
+            <p><strong>Organisational Values</strong><br>Al Ihsan's activities are deeply rooted in the ethics of Islamic finance, particularly inspired by the spirit of Sadaqah. All members are expected to respect and uphold the Islamic values that shape our initiatives.</p>
+            <p><strong>Membership Eligibility & Conduct</strong><br>Participation is open to individuals of sound moral character who respect the principles of Al Ihsan. The organisation reserves the right to accept, suspend, or terminate any membership found to be in breach of conduct or posing reputational or operational risk. Members must refrain from actions or speech that may disrupt organisational harmony or violate Islamic charitable ethics.</p>
+            <p><strong>Contribution Requirements</strong><br>Members shall contribute 10 per week, consistently and sincerely, as an act of voluntary charity.</p>
+            <p><strong>Authority & Governance</strong><br>All operational, financial, and programmatic decisions rest solely with the Al Ihsan corporate governance body. Members shall not interfere with or challenge organisational authority, nor influence fund allocation. Constructive feedback may be submitted formally and will be reviewed at the discretion of the board.</p>
+            <p><strong>Nature and Finality of Donations</strong><br>Donations made under this scheme are charitable, irrevocable, and nonrefundable. Members shall not claim, demand, or attempt to withdraw any donated amount, under any circumstance.</p>
+            <p><strong>Financial Transparency</strong><br>Al Ihsan is committed to transparent accounting practices. Annual financial summaries and impact reports shall be made available upon request to reinforce public trust.</p>
+            <p><strong>Data Privacy & Communication</strong><br>Member information shall be handled with confidentiality and care, used solely for organisational purposes. All official communication will be conducted through designated and approved channels.</p>
+            <p><strong>Dispute Resolution</strong><br>Any grievance or concern must be submitted in writing to the administrative committee. The committee's decision shall be final and binding, in accordance with the charitable mission and Islamic ethics.</p>
+            <p><strong>Prohibited Activities</strong><br>Members must not: Misrepresent the organisation in any form, online or offline; Use Al Ihsan's name for personal or political gain; Disrupt or obstruct operational activities or events.</p>
+            <p style="margin-bottom:0"><strong>Voluntary Withdrawal</strong><br>Members may exit the scheme at any point, effective upon written notice. Withdrawal does not entitle the member to reclaim previously donated funds.</p>
+          </div>
+        </details>
+
+        <label style="display:flex; align-items:center; gap:12px; margin-top:16px; font-size:15px; cursor:pointer">
+          <input type="checkbox" id="general-terms" required style="width:20px; height:20px; margin:0; accent-color: #56aeff;">
+          <span style="color: rgba(240,240,234,0.9);">I Agree with the Terms & Conditions</span>
+        </label>
+      </div>
+
+      <button id="general-submit-btn" class="btn-form-submit" type="submit" disabled style="margin-top: 8px; padding: 15px 28px; border-radius: 10px; border: none; background: #333366; color: #888888; font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; cursor: not-allowed; transition: background 0.2s, color 0.2s;">Submit General Membership</button>
+    </form>
+
+    <!------------------- PRIVACY MEMBERSHIP FORM ---------------------->
+    <form id="form-privacy" style="display: none; padding: 36px; border: 1px solid rgba(86,174,255,0.3); border-radius: 18px; background: rgba(0,73,149,0.18); flex-direction: column; gap: 24px">
+      <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 26px">Privacy Membership Application</h2>
+
+      <div>
+        <label class="form-label">Name / Alias <span class="req-star">*</span></label>
+        <div style="font-size: 13px; color: rgba(240,240,234,0.6); margin-bottom: 6px; margin-top: -4px;">Displayed on rosters instead of your real name</div>
+        <input type="text" name="alias" placeholder="e.g., Hidden_Ihsan_786" required>
+      </div>
+
+      <!-- Email & OTP -->
+      <div>
+        <label class="form-label">Email <span class="req-star">*</span></label>
+        <div style="display: flex; gap: 10px;">
+          <input type="email" id="privacy-email" placeholder="example@mail.com" required>
+          <button type="button" id="privacy-send-btn" style="padding: 0 16px; background: #56aeff; color: #060644; border: none; border-radius: 10px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; cursor: pointer; white-space: nowrap; transition: 0.2s;">Send Code</button>
+        </div>
+      </div>
+
+      <div id="privacy-otp-section" style="display: none;">
+        <label class="form-label">Verification Code <span class="req-star">*</span></label>
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="privacy-otp" placeholder="Enter 6-digit code" maxlength="6" style="letter-spacing: 4px; font-family: 'JetBrains Mono', monospace;">
+          <button type="button" id="privacy-verify-btn" style="padding: 0 16px; background: #4ade80; color: #060644; border: none; border-radius: 10px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; cursor: pointer; white-space: nowrap; transition: 0.2s;">Verify</button>
+        </div>
+        <div id="privacy-verify-msg" style="font-size: 13px; margin-top: 6px; display: none;"></div>
+      </div>
+
+      <!-- T&C -->
+      <div>
+        <label class="form-label">Check our Terms & Conditions <span class="req-star">*</span></label>
+        <details style="margin-bottom: 16px; border: 1px solid rgba(86,174,255,0.25); border-radius: 10px; background: #03032e; overflow: hidden;">
+          <summary style="padding: 14px 20px; cursor: pointer; font-weight: 600; color: #56aeff; display: flex; justify-content: space-between; align-items: center; user-select: none;">
+            Click to read full Terms & Conditions
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <div class="tc-scroll" style="padding: 16px 20px; border-top: 1px solid rgba(86,174,255,0.25); font-size: 13.5px; color: rgba(240,240,234,0.8); line-height: 1.6; max-height: 250px; overflow-y: auto;">
+            <p style="margin-top:0"><strong>Preamble</strong><br>Al Ihsan is a charitable organisation guided by the principles of Islamic finance. In order to preserve the integrity of our operations and ensure alignment with our core values, the following policies and terms govern all member participation.</p>
+            <p><strong>Organisational Values</strong><br>Al Ihsan's activities are deeply rooted in the ethics of Islamic finance, particularly inspired by the spirit of Sadaqah. All members are expected to respect and uphold the Islamic values that shape our initiatives.</p>
+            <p><strong>Membership Eligibility & Conduct</strong><br>Participation is open to individuals of sound moral character who respect the principles of Al Ihsan. The organisation reserves the right to accept, suspend, or terminate any membership found to be in breach of conduct or posing reputational or operational risk. Members must refrain from actions or speech that may disrupt organisational harmony or violate Islamic charitable ethics.</p>
+            <p><strong>Contribution Requirements</strong><br>Members shall contribute 10 per week, consistently and sincerely, as an act of voluntary charity.</p>
+            <p><strong>Authority & Governance</strong><br>All operational, financial, and programmatic decisions rest solely with the Al Ihsan corporate governance body. Members shall not interfere with or challenge organisational authority, nor influence fund allocation. Constructive feedback may be submitted formally and will be reviewed at the discretion of the board.</p>
+            <p><strong>Nature and Finality of Donations</strong><br>Donations made under this scheme are charitable, irrevocable, and nonrefundable. Members shall not claim, demand, or attempt to withdraw any donated amount, under any circumstance.</p>
+            <p><strong>Financial Transparency</strong><br>Al Ihsan is committed to transparent accounting practices. Annual financial summaries and impact reports shall be made available upon request to reinforce public trust.</p>
+            <p><strong>Data Privacy & Communication</strong><br>Member information shall be handled with confidentiality and care, used solely for organisational purposes. All official communication will be conducted through designated and approved channels.</p>
+            <p><strong>Dispute Resolution</strong><br>Any grievance or concern must be submitted in writing to the administrative committee. The committee's decision shall be final and binding, in accordance with the charitable mission and Islamic ethics.</p>
+            <p><strong>Prohibited Activities</strong><br>Members must not: Misrepresent the organisation in any form, online or offline; Use Al Ihsan's name for personal or political gain; Disrupt or obstruct operational activities or events.</p>
+            <p style="margin-bottom:0"><strong>Voluntary Withdrawal</strong><br>Members may exit the scheme at any point, effective upon written notice. Withdrawal does not entitle the member to reclaim previously donated funds.</p>
+          </div>
+        </details>
+
+        <label style="display:flex; align-items:center; gap:12px; margin-top:16px; font-size:15px; cursor:pointer">
+          <input type="checkbox" id="privacy-terms" required style="width:20px; height:20px; margin:0; accent-color: #56aeff;">
+          <span style="color: rgba(240,240,234,0.9);">I Agree with the Terms & Conditions</span>
+        </label>
+      </div>
+
+      <button id="privacy-submit-btn" class="btn-form-submit" type="submit" disabled style="margin-top: 8px; padding: 15px 28px; border-radius: 10px; border: none; background: #333366; color: #888888; font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; cursor: not-allowed; transition: background 0.2s, color 0.2s;">Submit Privacy Membership</button>
+    </form>
+
+  </div>
+</div>
+
+<!-- FOOTER INJECTION -->
+<div id="footer-placeholder"></div>
+
+<!-- ========================================== -->
+<!-- SCRIPT 1: UI, HEADER INJECTION, AND TABS   -->
+<!-- ========================================== -->
+<script>
+  // 1. Tab Switching Logic
+  function selectMembership(type) {
+    var genForm = document.getElementById('form-general');
+    var privForm = document.getElementById('form-privacy');
+    var tabGen = document.getElementById('tab-general');
+    var tabPriv = document.getElementById('tab-privacy');
+
+    if (type === 'privacy') {
+      genForm.style.display = 'none';
+      privForm.style.display = 'flex';
+      tabPriv.style.border = '2px solid #56aeff';
+      tabPriv.style.background = 'rgba(0,73,149,0.38)';
+      tabGen.style.border = '1.5px solid rgba(86,174,255,0.28)';
+      tabGen.style.background = 'rgba(0,73,149,0.14)';
+    } else {
+      genForm.style.display = 'flex';
+      privForm.style.display = 'none';
+      tabGen.style.border = '2px solid #56aeff';
+      tabGen.style.background = 'rgba(0,73,149,0.38)';
+      tabPriv.style.border = '1.5px solid rgba(86,174,255,0.28)';
+      tabPriv.style.background = 'rgba(0,73,149,0.14)';
+    }
+  }
+
+  // Check URL parameter for privacy default
+  if (new URLSearchParams(window.location.search).get('type') === 'privacy') {
+    selectMembership('privacy');
+  }
+
+  // 2. Inject Universal Header & Footer
+  document.addEventListener("DOMContentLoaded", () => {
+    const headerPlaceholder = document.getElementById("header-placeholder");
+    const footerPlaceholder = document.getElementById("footer-placeholder");
+
+    Promise.all([
+      fetch("header.html").then(res => res.text()),
+      fetch("footer.html").then(res => res.text())
+    ])
+    .then(([headerData, footerData]) => {
+      if (headerPlaceholder) {
+        headerPlaceholder.innerHTML = headerData;
+        let currentPage = window.location.pathname.split("/").pop();
+        if (currentPage === "" || currentPage === "/") currentPage = "index.html";
+        const navLinks = headerPlaceholder.querySelectorAll(".nav-link");
+        navLinks.forEach(link => {
+          if (link.getAttribute("href") === currentPage) link.classList.add("active");
+        });
+      }
+      if (footerPlaceholder) footerPlaceholder.innerHTML = footerData;
+    })
+    .catch(error => console.error("Error loading components:", error));
+  });
+</script>
+
+<!-- ========================================== -->
+<!-- SCRIPT 2: SUPABASE AUTH & APPSCRIPT SUBMIT -->
+<!-- ========================================== -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Initialize Supabase
+    const SUPABASE_URL = 'https://ukihcsmwffwlacnaejmh.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVraWhjc213ZmZ3bGFjbmFlam1oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIzMTQ0MDQsImV4cCI6MjEwNzg5MDQwNH0.DXJtJ7osOeXcEa81cB0sI5H_f3WoUfZx4IQyznmuXfg';
+    const { createClient } = supabase;
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // 2. Google Apps Script Endpoint
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxs58waei-HMyQfIdM_TqmZ4Jac8cuBCIk2SevngI1mqq5RrqBIaCQcZTJ3uDAjQxpn/exec';
+
+    // 3. Setup Logic
+    function setupVerification(prefix) {
+      const emailInput = document.getElementById(`${prefix}-email`);
+      const sendBtn = document.getElementById(`${prefix}-send-btn`);
+      const otpSection = document.getElementById(`${prefix}-otp-section`);
+      const otpInput = document.getElementById(`${prefix}-otp`);
+      const verifyBtn = document.getElementById(`${prefix}-verify-btn`);
+      const verifyMsg = document.getElementById(`${prefix}-verify-msg`);
+      const submitBtn = document.getElementById(`${prefix}-submit-btn`);
+      const form = document.getElementById(`form-${prefix}`);
+      const formAlert = document.getElementById('form-alert');
+
+      let isVerified = false;
+      let accessToken = "";
+
+      // --- Send OTP ---
+      sendBtn.addEventListener('click', async () => {
+        const email = emailInput.value.trim();
+        if (!email) return alert('Please enter your email address first.');
+
+        sendBtn.textContent = 'Sending...';
+        sendBtn.disabled = true;
+
+        const { error } = await supabaseClient.auth.signInWithOtp({
+          email: email,
+          options: { shouldCreateUser: true }
+        });
+
+        if (error) {
+          alert('Error sending code: ' + error.message);
+          sendBtn.textContent = 'Send Code';
+          sendBtn.disabled = false;
+        } else {
+          sendBtn.textContent = 'Code Sent';
+          sendBtn.style.background = '#4ade80';
+          otpSection.style.display = 'block';
+        }
+      });
+
+      // --- Verify OTP ---
+      verifyBtn.addEventListener('click', async () => {
+        const email = emailInput.value.trim();
+        const token = otpInput.value.trim();
+        if (!token || token.length < 6) return alert('Please enter the 6-digit code.');
+
+        verifyBtn.textContent = 'Verifying...';
+
+        const { data, error } = await supabaseClient.auth.verifyOtp({
+          email: email,
+          token: token,
+          type: 'signup'
+        });
+
+        if (error) {
+          verifyMsg.style.display = 'block';
+          verifyMsg.style.color = '#ff8888';
+          verifyMsg.textContent = 'Invalid or expired code. Please try again.';
+          verifyBtn.textContent = 'Verify';
+        } else {
+          isVerified = true;
+          accessToken = data.session.access_token;
+
+          verifyMsg.style.display = 'block';
+          verifyMsg.style.color = '#4ade80';
+          verifyMsg.textContent = 'Email verified successfully!';
+          otpInput.disabled = true;
+          verifyBtn.textContent = 'Verified ✓';
+          verifyBtn.disabled = true;
+          verifyBtn.style.background = '#333366';
+
+          submitBtn.disabled = false;
+          submitBtn.style.background = '#56aeff';
+          submitBtn.style.color = '#060644';
+          submitBtn.style.cursor = 'pointer';
+        }
+      });
+
+      // --- Secure Form Submission ---
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!isVerified) {
+          alert('You must verify your email before submitting.');
+          return;
+        }
+
+        submitBtn.textContent = 'Submitting...';
+        submitBtn.disabled = true;
+
+        let payload = {
+          membershipType: prefix === 'general' ? 'General' : 'Privacy',
+          email: emailInput.value.trim(),
+          accessToken: accessToken
+        };
+
+        if (prefix === 'general') {
+          payload.name = form.querySelector('[name="fullName"]').value;
+          payload.address = form.querySelector('[name="address"]').value;
+          payload.phone = form.querySelector('[name="phone"]').value;
+          payload.terms = document.getElementById('general-terms').checked ? "I Agree with the Terms & Conditions" : "";
+        } else if (prefix === 'privacy') {
+          payload.name = form.querySelector('[name="alias"]').value;
+          payload.terms = document.getElementById('privacy-terms').checked ? "I Agree with the Terms & Conditions" : "";
+        }
+
+        try {
+          const response = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+          });
+
+          const result = await response.json();
+
+          if (result.status === 'success') {
+            form.style.display = 'none';
+            formAlert.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            alert('Submission failed: ' + result.message);
+            submitBtn.textContent = 'Submit';
+            submitBtn.disabled = false;
+          }
+        } catch (error) {
+          alert('Network error. Please try again.');
+          submitBtn.textContent = 'Submit';
+          submitBtn.disabled = false;
+        }
+      });
+    }
+
+    // Initialize both forms
+    setupVerification('general');
+    setupVerification('privacy');
+  });
+</script>
+
+</div>
+</body>
+</html>

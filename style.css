@@ -1,0 +1,177 @@
+/* --- Header Navigation --- */
+.nav-link {
+  position: relative;
+  color: #f0f0ea;
+  text-decoration: none;
+  padding-bottom: 6px;
+  transition: color 0.2s ease;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #56aeff;
+  transition: width 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+.nav-link.active {
+  color: #56aeff;
+  font-weight: 700;
+}
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* --- Neon Glowing Button Effects --- */
+.btn-glow-blue {
+  transition: all 0.3s ease !important;
+}
+.btn-glow-blue:hover {
+  box-shadow:
+    0 0 5px rgba(86, 174, 255, 0.9),
+    0 0 15px rgba(86, 174, 255, 0.8),
+    0 0 30px rgba(86, 174, 255, 0.6),
+    0 0 50px rgba(86, 174, 255, 0.4),
+    0 0 80px rgba(86, 174, 255, 0.2);
+  filter: brightness(1.15); /* Makes the button itself look lit up */
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+.btn-glow-gold {
+  transition: all 0.3s ease !important;
+}
+.btn-glow-gold:hover {
+  box-shadow:
+    0 0 5px rgba(246, 183, 88, 0.9),
+    0 0 15px rgba(246, 183, 88, 0.8),
+    0 0 30px rgba(246, 183, 88, 0.6),
+    0 0 50px rgba(246, 183, 88, 0.4),
+    0 0 80px rgba(246, 183, 88, 0.2);
+  filter: brightness(1.15); /* Makes the button itself look lit up */
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+.btn-form-submit {
+  transition: all 0.3s ease !important;
+}
+.btn-form-submit:hover {
+  box-shadow:
+    0 0 2px rgba(86, 174, 255, 0.9),
+    0 0 6px rgba(86, 174, 255, 0.8),
+    0 0 12px rgba(86, 174, 255, 0.6);
+  filter: brightness(1.15); /* Makes the button itself look lit up */
+  transform: translateY(-2px) scale(1.02) !important;
+}
+
+/* =========================================
+   UNIVERSAL FOOTER STYLES
+   ========================================= */
+.footer-wrapper {
+  border-top: 1px solid rgba(86,174,255,0.18);
+  background: #03032e;
+}
+.footer-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 32px 48px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 48px;
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1 1 140px;
+}
+.footer-brand {
+  flex: 1 1 320px;
+  max-width: 400px;
+}
+.footer-heading {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f0f0ea;
+  font-weight: 700;
+}
+.footer-link {
+  color: rgba(240,240,234,0.7);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.footer-link:hover {
+  color: #56aeff;
+}
+.footer-contact-row {
+  display: flex;
+  gap: 12px;
+  color: rgba(240,240,234,0.7);
+  line-height: 1.5;
+  font-size: 14.5px;
+}
+.footer-contact-row svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(86,174,255,0.1);
+  border: 1px solid rgba(86,174,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #56aeff;
+  transition: all 0.2s ease;
+}
+.social-btn:hover {
+  background: #56aeff;
+  color: #060644;
+}
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 32px;
+  border-top: 1px solid rgba(86,174,255,0.1);
+  font-size: 13px;
+  color: rgba(240,240,234,0.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* =========================================
+   MOBILE HEADER FIX
+   ========================================= */
+@media (max-width: 768px) {
+  /* Force the main header container to stack */
+  .header-container {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 16px !important;
+  }
+
+  /* Force the navigation links to wrap nicely */
+  .nav-links-wrapper {
+    flex-wrap: wrap !important;
+    gap: 16px !important;
+    width: 100%;
+  }
+
+  /* Make the "Become a Member" button take full width on mobile */
+  .btn-glow-blue {
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+  }
+}

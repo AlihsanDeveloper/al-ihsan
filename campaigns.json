@@ -1,0 +1,62 @@
+[
+  {
+    "year": "2026",
+    "type": "Ramadan",
+    "title": "Ramadan Campaign 2026",
+    "itemsDistributed": 19,
+    "peopleHelped": 46,
+    "expense": 14460,
+    "imageUrl": "images/ramadan-campaign-2026.jpg",
+    "reportUrl": "reports/ramadan-campaign-2026.pdf"
+  },
+  {
+    "year": "2025",
+    "type": "Special appeal",
+    "title": "Quranic verse & Dua Stickers",
+    "itemsDistributed": 1500,
+    "peopleHelped": 800,
+    "expense": 850000,
+    "imageUrl": "images/stickers-2025.jpg",
+    "reportUrl": "reports/stickers-2025.pdf"
+  },
+  {
+    "year": "2025",
+    "type": "Special appeal",
+    "title": "Prayer Caps",
+    "itemsDistributed": 1500,
+    "peopleHelped": 800,
+    "expense": 850000,
+    "imageUrl": "images/prayer-caps-2025.jpg",
+    "reportUrl": "reports/prayer-caps-2025.pdf"
+  },
+  {
+    "year": "2025",
+    "type": "Ramadan",
+    "title": "Ramadan Campaign 2025",
+    "itemsDistributed": 800,
+    "peopleHelped": 800,
+    "expense": 250000,
+    "imageUrl": "images/ramadan-campaign-2025.jpg",
+    "reportUrl": "reports/ramadan-campaign-2025.pdf"
+  },
+  {
+    "year": "2024",
+    "type": "Ramadan",
+    "title": "Ramadan Campaign 2024",
+    "itemsDistributed": 800,
+    "peopleHelped": 800,
+    "expense": 250000,
+    "imageUrl": "images/ramadan-campaign-2024.jpg",
+    "reportUrl": "reports/ramadan-campaign-2024.pdf"
+  },
+  {
+    "year": "2023",
+    "type": "Ramadan",
+    "title": "Ramadan Campaign 2023",
+    "itemsDistributed": 800,
+    "peopleHelped": 800,
+    "expense": 250000,
+    "imageUrl": "images/ramadan-campaign-2023.jpg",
+    "reportUrl": "reports/ramadan-campaign-2023.pdf"
+  }
+]

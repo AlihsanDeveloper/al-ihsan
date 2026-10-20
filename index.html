@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Ihsan · Home</title>
+
+<!-- ═══════════════════════ SOCIAL SHARING TAGS ═══════════════════════ -->
+<!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alihsan.org.au/">
+<meta property="og:title" content="Al Ihsan | Small weekly gifts. Lasting change.">
+<meta property="og:description" content="A member-powered Islamic charity. Together we feed families, support students and stand beside the sick, one trusted, transparent week at a time.">
+<meta property="og:image" content="https://alihsan.org.au/images/social-preview.jpg">
+
+<!-- Twitter (X) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://alihsan.org.au/">
+<meta name="twitter:title" content="Al Ihsan | Small weekly gifts. Lasting change.">
+<meta name="twitter:description" content="A member-powered Islamic charity. Together we feed families, support students and stand beside the sick, one trusted, transparent week at a time.">
+<meta name="twitter:image" content="https://alihsan.org.au/images/social-preview.jpg">
+
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #060644; color: #f0f0ea; font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.6; }
+  a { color: #56aeff; text-decoration: none; transition: 0.2s ease; }
+  a:hover { color: #f0f0ea; }
+
+  /* Hero Toggle Visibility */
+  .hero-live-only { display: none; }
+  .hero-off-only { display: none; }
+  body.campaign-active .hero-live-only { display: flex; }
+  body.campaign-off .hero-off-only { display: flex; }
+
+  /* Receipt Style Stats (shared with campaigns) */
+  .receipt-stats {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 8px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    background: rgba(3,3,46,0.4);
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(86,174,255,0.15);
+    margin: 16px 0;
+  }
+
+  /* Latest Campaign Teaser Image Vignette */
+  .latest-campaign-img-wrapper {
+    flex: 1 1 300px;
+    aspect-ratio: 4 / 3; /* Forces the 4:3 landscape ratio */
+    position: relative;
+    overflow: hidden;
+    background: #004995;
+  }
+  .latest-campaign-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .latest-campaign-img-wrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    background:
+      linear-gradient(to right, transparent 60%, rgba(0,73,149,0.6) 100%),
+      radial-gradient(circle, transparent 40%, rgba(3,3,46,0.7) 100%),
+      linear-gradient(to top, rgba(3,3,46,0.8) 0%, transparent 50%);
+  }
+  .latest-campaign-img-wrapper:hover img {
+    transform: scale(1.05);
+  }
+
+</style>
+
+</head>
+<body class="campaign-active">
+
+<div style="width: 100%; background: #060644; color: #f0f0ea; font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.6">
+
+<!-- NAV -->
+<div id="header-placeholder" style="position: sticky; top: 0; z-index: 100;"></div>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<div style="position: relative; overflow: hidden; background-color: #060644; background-image: linear-gradient(rgba(86,174,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(86,174,255,0.07) 1px, transparent 1px), radial-gradient(circle at 78% 30%, rgba(0,119,178,0.4), transparent 55%); background-size: 48px 48px, 48px 48px, 100% 100%; border-bottom: 1px solid rgba(86,174,255,0.18)">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 56px 32px 56px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px">
+
+    <!-- Left Text -->
+    <div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #56aeff">Giving with excellence · Ihsan</div>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(42px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.02em">Small weekly gifts. <span style="color: #56aeff">Lasting</span> change.</h1>
+      <p style="margin: 0; font-size: 18px; max-width: 560px; color: rgba(240,240,234,0.8)">Al Ihsan is a member-powered Islamic charity. Together we feed families, support students and stand beside the sick, one trusted, transparent week at a time.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; padding-top: 8px">
+        <a class="btn-glow-blue" href="membership.html" style="color: #060644; background: #56aeff; padding: 15px 28px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px">Join the Weekly Scheme</a>
+        <a href="donate.html" style="color: #f0f0ea; border: 1.5px solid rgba(86,174,255,0.6); padding: 14px 28px; border-radius: 10px; font-weight: 500; font-size: 16px">Give Once</a>
+      </div>
+    </div>
+
+    <!-- Right Card: Live Progress (Campaign Mode) -->
+    <div class="hero-live-only" style="flex: 1 1 400px; min-width: 0; justify-content: center">
+      <div style="position: relative; width: 100%; max-width: 400px; padding: 28px; border-radius: 20px; border: 1px solid rgba(246,183,88,0.35); background: rgba(3,3,46,0.7); overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);">
+        <svg viewBox="0 0 400 400" style="position: absolute; top: -50px; right: -60px; width: 260px; height: 260px; opacity: 0.4" fill="none" stroke="#f6b758" stroke-width="1" aria-hidden="true"><rect x="100" y="100" width="200" height="200"></rect><rect x="100" y="100" width="200" height="200" transform="rotate(45 200 200)"></rect><circle cx="200" cy="200" r="190"></circle></svg>
+        <div style="position: relative; display: flex; flex-direction: column; gap: 20px">
+          <div style="display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758"><span class="live-dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #f6b758; animation: pulseDot 2s infinite;"></span> Ramadan Campaign Live</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.15">Grocery packages for families in need</div>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <div style="height: 10px; border-radius: 6px; background: rgba(240,240,234,0.12); overflow: hidden"><div style="width: 62%; height: 10px; background: #f6b758"></div></div>
+            <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: rgba(240,240,234,0.75)"><span>3,000 packages</span><span>Goal 5,000</span></div>
+          </div>
+          <a href="ramadan.html" style="color: #f6b758; font-weight: 700">Support the campaign →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Card: Off-Season Image (Off-Season Mode) -->
+    <div class="hero-off-only" style="flex: 1 1 400px; min-width: 0; justify-content: center">
+      <div style="position: relative; width: 100%; max-width: 340px; aspect-ratio: 3 / 4; border-radius: 20px; border: 1px solid rgba(246,183,88,0.4); overflow: hidden; background: linear-gradient(135deg, #004995 0%, #03032e 100%); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);">
+        <img src="images/ramadan-package.jpg" alt="Ramadan Grocery Package" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.style.display='none'">
+        <div style="position: absolute; inset: 0; background: radial-gradient(circle at bottom left, #03032e 0%, rgba(3,3,46,0.85) 20%, transparent 70%), linear-gradient(to top, rgba(3,3,46,0.95) 0%, transparent 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 32px 24px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #f6b758; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;">Our Flagship Programme</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #f0f0ea; line-height: 1.2;">Preparing for the next Ramadan Campaign.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════ IMPACT STRIP ═══════════════════════ -->
+<div style="border-bottom: 1px solid rgba(86,174,255,0.18); background: #03032e">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; align-items: center;">
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 36px; color: #56aeff; white-space: nowrap;">06</div>
+      <div style="font-size: 13px; color: rgba(240,240,234,0.75); text-transform: uppercase; letter-spacing: 0.1em;">Campaigns Completed</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 36px; color: #f6b758; white-space: nowrap;">৳ 3.75M</div>
+      <div style="font-size: 13px; color: rgba(240,240,234,0.75); text-transform: uppercase; letter-spacing: 0.1em;">Total Expense</div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 4px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 36px; color: #56aeff; white-space: nowrap;">4,900+</div>
+      <div style="font-size: 13px; color: rgba(240,240,234,0.75); text-transform: uppercase; letter-spacing: 0.1em;">People Engaged</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ 3 CORE OPERATIONS ═══════════════════════ -->
+<div style="max-width: 1200px; margin: 0 auto; padding: 80px 32px; display: flex; flex-direction: column; gap: 40px">
+  <div style="display: flex; flex-direction: column; gap: 12px; max-width: 700px">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #56aeff">What We Do</div>
+    <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 38px; line-height: 1.12; letter-spacing: -0.01em">A simple cycle of giving</h2>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 24px">
+    <!-- Pillar 1 -->
+    <div style="flex: 1 1 300px; min-width: 0; padding: 32px; border: 1px solid rgba(86,174,255,0.22); border-radius: 18px; background: rgba(0,73,149,0.16); display: flex; flex-direction: column; gap: 16px; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+      <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(86,174,255,0.15); display: flex; align-items: center; justify-content: center;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#56aeff" stroke-width="2"><path d="M17 2l4 4-4 4"></path><path d="M3 11V9a3 3 0 0 1 3-3h15"></path><path d="M7 22l-4-4 4-4"></path><path d="M21 13v2a3 3 0 0 1-3 3H3"></path></svg>
+      </div>
+      <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px">Weekly Scheme</h3>
+      <p style="margin: 0; color: rgba(240,240,234,0.75); font-size: 15px;">Our members give 10 Taka every Friday, creating a steady pool of funds to respond immediately to verified emergencies.</p>
+      <a href="membership.html" style="font-weight: 700; font-size: 14px; margin-top: auto; display: flex; align-items: center; gap: 6px;">Join the Scheme <span>→</span></a>
+    </div>
+
+    <!-- Pillar 2 -->
+    <div style="flex: 1 1 300px; min-width: 0; padding: 32px; border: 1px solid rgba(86,174,255,0.22); border-radius: 18px; background: rgba(0,73,149,0.16); display: flex; flex-direction: column; gap: 16px; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+      <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(86,174,255,0.15); display: flex; align-items: center; justify-content: center;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#56aeff" stroke-width="2"><path d="M3 21h18"></path><path d="M3 10h18"></path><path d="M5 6l7-3 7 3"></path><path d="M4 10v11"></path><path d="M20 10v11"></path><path d="M8 14v3"></path><path d="M12 14v3"></path><path d="M16 14v3"></path></svg>
+      </div>
+      <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px">Community Welfare</h3>
+      <p style="margin: 0; color: rgba(240,240,234,0.75); font-size: 15px;">We support local mosques, madrasas, and social infrastructures with resources, maintenance, and financial aid.</p>
+      <a href="about.html" style="font-weight: 700; font-size: 14px; margin-top: auto; display: flex; align-items: center; gap: 6px;">Learn More <span>→</span></a>
+    </div>
+
+    <!-- Pillar 3 -->
+    <div style="flex: 1 1 300px; min-width: 0; padding: 32px; border: 1px solid rgba(86,174,255,0.22); border-radius: 18px; background: rgba(0,73,149,0.16); display: flex; flex-direction: column; gap: 16px; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+      <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(86,174,255,0.15); display: flex; align-items: center; justify-content: center;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#56aeff" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+      </div>
+      <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 22px">Ramadan Campaign</h3>
+      <p style="margin: 0; color: rgba(240,240,234,0.75); font-size: 15px;">Our largest annual program, uniting members and donors to distribute massive-scale grocery packages before Ramadan.</p>
+      <a href="ramadan.html" style="font-weight: 700; font-size: 14px; margin-top: auto; display: flex; align-items: center; gap: 6px;">View Campaign <span>→</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ LATEST CAMPAIGN TEASER ═══════════════════════ -->
+<div style="background: rgba(0,73,149,0.1); border-top: 1px solid rgba(86,174,255,0.15); border-bottom: 1px solid rgba(86,174,255,0.15);">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 64px 32px; display: flex; flex-direction: column; gap: 32px">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758">Recent Impact</div>
+        <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 32px; letter-spacing: -0.01em;">Our Latest Campaign</h2>
+      </div>
+      <a href="campaigns.html" style="color: #56aeff; font-weight: 700; font-size: 15px; border-bottom: 1px solid #56aeff; padding-bottom: 2px;">View Full Archive →</a>
+    </div>
+
+    <!-- Teaser Card (Fetched via JS) -->
+    <div id="latest-campaign-card" style="display: flex; align-items:stretch; flex-wrap: wrap; border: 1px solid rgba(86,174,255,0.25); border-radius: 16px; overflow: hidden; background: rgba(3,3,46,0.5);">
+      <!-- Fallback content if fetch fails -->
+      <div style="flex: 1 1 240px; min-height: 200px; background: #004995; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: rgba(240,240,234,0.7)">[ Campaign Photo ]</div>
+      <div style="flex: 2 1 320px; padding: 32px; display: flex; flex-direction: column; justify-content: center;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #56aeff; margin-bottom: 8px;">[ Year ] · [ Type ]</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; margin-bottom: 12px;">Loading latest campaign...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ MEMBERSHIP BANNER ═══════════════════════ -->
+<div style="max-width: 1200px; margin: 0 auto; padding: 64px 32px">
+  <div style="background: rgba(0,73,149,0.26); border: 1.5px solid rgba(86,174,255,0.45); border-radius: 18px; padding: 40px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px;">
+    <div style="flex: 1 1 400px; display: flex; flex-direction: column; gap: 12px;">
+      <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px;">Join the Year-Round Weekly Scheme</h2>
+      <p style="margin: 0; color: rgba(240,240,234,0.8); font-size: 16px; max-width: 600px;">Commit 10 Taka every Friday to power our emergency relief. Choose General or Privacy membership.</p>
+
+      <!-- Mini Badges -->
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 8px;">
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #56aeff; font-family: 'JetBrains Mono', monospace;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h9"></path><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path><circle cx="19" cy="19" r="3"></circle></svg>
+          Real-Time Alerts
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #56aeff; font-family: 'JetBrains Mono', monospace;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path><path d="M18 14h-8"></path><path d="M15 18h-5"></path><path d="M10 6h8v4h-8V6Z"></path></svg>
+          Monthly Newsletter
+        </div>
+      </div>
+    </div>
+
+    <div style="flex-shrink: 0;">
+      <a class="btn-glow-blue" href="membership.html" style="display: inline-block; color: #060644; background: #56aeff; padding: 15px 32px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Become a Member</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ ISLAMIC SPIRIT QUOTE ═══════════════════════ -->
+<div style="background-color: #03032e; background-image: radial-gradient(circle at 50% 50%, rgba(0,119,178,0.15), transparent 60%); border-top: 1px solid rgba(246,183,88,0.2);">
+  <div style="max-width: 900px; margin: 0 auto; padding: 80px 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px;">
+    <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(246,183,88,0.1); display: flex; align-items: center; justify-content: center;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f6b758" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+    </div>
+    <p style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: clamp(20px, 3vw, 28px); line-height: 1.5; font-weight: 500; color: #f0f0ea;">
+      "The example of those who spend their wealth in the way of Allah is like a seed which grows seven spikes; in each spike is a hundred grains. And Allah multiplies His reward for whom He wills."
+    </p>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #f6b758;">
+      — Surah Al-Baqarah 2:261
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<div id="footer-placeholder"></div>
+
+<!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+<script>
+// 1. Hero Mode Toggle
+// Set to `true` during Ramadan, `false` for the rest of the year.
+const CAMPAIGN_ACTIVE = true;
+document.body.classList.remove('campaign-active', 'campaign-off');
+document.body.classList.add(CAMPAIGN_ACTIVE ? 'campaign-active' : 'campaign-off');
+
+// 2. Fetch Latest Campaign for Teaser
+// 2. Fetch Latest Ramadan Campaign for Teaser
+async function loadLatestCampaign() {
+  const cardContainer = document.getElementById('latest-campaign-card');
+
+  // Fallback data just in case the JSON fails to load locally
+  let ramadanCampaigns = [
+    {
+      "year": "2026",
+      "type": "Ramadan",
+      "title": "Ramadan Grocery Drive 2026",
+      "itemsDistributed": 3000,
+      "peopleHelped": 1200,
+      "expense": 1500000,
+      "imageUrl": "images/ramadan-2026.jpg",
+      "reportUrl": "reports/ramadan-2026.pdf"
+    }
+  ];
+
+  try {
+    const res = await fetch('./campaigns.json');
+    if (res.ok) {
+      const data = await res.json();
+      // 1. Filter ONLY for Ramadan
+      const filtered = data.filter(c => c.type === 'Ramadan');
+      if (filtered.length > 0) {
+        // 2. Sort by year descending (newest first)
+        filtered.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+        ramadanCampaigns = filtered;
+      }
+    }
+  } catch (err) {
+    console.warn("Using fallback campaign data.");
+  }
+
+  // Get the newest Ramadan campaign
+  const latest = ramadanCampaigns[0];
+
+  let items = Number(latest.itemsDistributed) || 0;
+  let people = Number(latest.peopleHelped) || 0;
+  let expense = Number(latest.expense) || 0;
+
+  // Build the image HTML with the vignette wrapper
+  let imageHTML = '';
+  if (latest.imageUrl) {
+    imageHTML = `<img src="${latest.imageUrl}" alt="${latest.title}" onerror="this.outerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;font-family:JetBrains Mono,monospace;font-size:13px;color:rgba(240,240,234,0.7)\\'>[ Image not found ]</div>'">`;
+  } else {
+    imageHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;font-family:JetBrains Mono,monospace;font-size:13px;color:rgba(240,240,234,0.7)">[ No Photo ]</div>';
+  }
+
+  // Build the receipt stats
+  let statsHTML = `
+    <div class="receipt-stats" style="margin: 16px 0;">
+      <span style="color: rgba(240,240,234,0.6);">Packages</span>
+      <span style="color: #f6b758; font-weight: 700;">: ${items.toLocaleString()}</span>
+
+      <span style="color: rgba(240,240,234,0.6);">Families</span>
+      <span style="color: #f6b758; font-weight: 700;">: ${people.toLocaleString()}</span>
+
+      <span style="color: rgba(240,240,234,0.6);">Expense</span>
+      <span style="color: #f6b758; font-weight: 700;">: ৳ ${expense.toLocaleString()}</span>
+    </div>
+  `;
+
+  // Inject the new HTML
+  cardContainer.innerHTML = `
+    <!-- Image with Vignette -->
+    <div class="latest-campaign-img-wrapper">
+      ${imageHTML}
+    </div>
+
+    <!-- Text Content -->
+    <div style="flex: 2 1 320px; padding: 32px; display: flex; flex-direction: column; justify-content: center;">
+      <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+        <span style="padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(246,183,88,0.6); color: #f6b758; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">${latest.year} · Ramadan</span>
+      </div>
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; line-height: 1.2;">${latest.title}</div>
+      ${statsHTML}
+      <div style="margin-top: auto;">
+        <a href="campaigns.html" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 6px; background: rgba(86,174,255,0.1); border: 1px solid rgba(86,174,255,0.3); color: #56aeff; font-size: 12px; font-family: 'JetBrains Mono', monospace; font-weight: 700; transition: 0.2s;" onmouseover="this.style.background='rgba(86,174,255,0.2)'" onmouseout="this.style.background='rgba(86,174,255,0.1)'">View All Campaigns</a>
+      </div>
+    </div>
+  `;
+}
+
+// 3. Pulse Animation for Live Badge
+const style = document.createElement('style');
+style.innerHTML = `
+  @keyframes pulseDot {
+    0%   { box-shadow: 0 0 0 0 rgba(246,183,88,0.7); }
+    70%  { box-shadow: 0 0 0 10px rgba(246,183,88,0); }
+    100% { box-shadow: 0 0 0 0 rgba(246,183,88,0); }
+  }
+`;
+document.head.appendChild(style);
+
+// Run
+loadLatestCampaign();
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    // 1. Universal Favicon
+    const favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    favicon.type = 'image/png';
+    favicon.href = 'images/logo.png'; // Adjust path if needed
+    document.head.appendChild(favicon);
+
+    // 2. Fetch Header and Footer simultaneously
+    const headerPlaceholder = document.getElementById("header-placeholder");
+    const footerPlaceholder = document.getElementById("footer-placeholder");
+
+    Promise.all([
+      fetch("header.html").then(res => res.text()),
+      fetch("footer.html").then(res => res.text())
+    ])
+    .then(([headerData, footerData]) => {
+
+      // Inject Header
+      if (headerPlaceholder) {
+        headerPlaceholder.innerHTML = headerData;
+
+        // Auto-highlight active nav link
+        let currentPage = window.location.pathname.split("/").pop();
+        if (currentPage === "" || currentPage === "/") currentPage = "index.html";
+
+        const navLinks = headerPlaceholder.querySelectorAll(".nav-link");
+        navLinks.forEach(link => {
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
+        });
+      }
+
+      // Inject Footer
+      if (footerPlaceholder) {
+        footerPlaceholder.innerHTML = footerData;
+      }
+    })
+    .catch(error => console.error("Error loading components:", error));
+  });
+</script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al Ihsan · Ramadan Campaign</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #060644; color: #f0f0ea; font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.6; }
+  a { color: #56aeff; text-decoration: none; transition: 0.2s ease; }
+  a:hover { color: #f0f0ea; }
+
+  /* CAMPAIGN MODE VISIBILITY */
+  body.campaign-off .campaign-active-only { display: none !important; }
+  body.campaign-active .campaign-off-only { display: none !important; }
+
+  /* COPY BUTTON */
+  .copy-btn { background: rgba(86,174,255,0.15); border: 1px solid rgba(86,174,255,0.4); color: #56aeff; padding: 6px 12px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+  .copy-btn:hover { background: #56aeff; color: #060644; }
+  .copy-btn.copied { background: #4ade80; border-color: #4ade80; color: #060644; }
+
+  /* LIVE CAMPAIGN BADGE PULSE */
+  @keyframes pulseDot {
+    0%   { box-shadow: 0 0 0 0 rgba(246,183,88,0.7); }
+    70%  { box-shadow: 0 0 0 10px rgba(246,183,88,0); }
+    100% { box-shadow: 0 0 0 0 rgba(246,183,88,0); }
+  }
+  .live-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #f6b758; animation: pulseDot 2s infinite; }
+
+  /* HERO IMAGE VIGNETTE */
+  .hero-img-wrapper {
+    position: relative; width: 100%; max-width: 500px; aspect-ratio: 4 / 3;
+    border-radius: 20px; border: 1px solid rgba(246,183,88,0.4); overflow: hidden;
+    background: linear-gradient(135deg, #004995 0%, #03032e 100%);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  }
+  .hero-img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-img-wrapper::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+    background: radial-gradient(circle at bottom left, #03032e 0%, rgba(3,3,46,0.85) 20%, transparent 70%), linear-gradient(to top, rgba(3,3,46,0.95) 0%, transparent 60%);
+  }
+  .hero-img-text {
+    position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px 24px;
+  }
+
+  /* CAROUSEL */
+  .carousel { position: relative; width: 100%; }
+  .carousel-viewport { overflow: hidden; border-radius: 18px; border: 1px solid rgba(86,174,255,0.25); }
+  .carousel-track { display: flex; transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1); }
+  .carousel-slide { min-width: 100%; position: relative; height: clamp(280px, 48vw, 460px); background: linear-gradient(135deg, #004995 0%, #03032e 100%); overflow: hidden; }
+  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .carousel-caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 28px 24px; background: linear-gradient(to top, rgba(3,3,46,0.95) 0%, rgba(3,3,46,0.6) 50%, transparent 100%); }
+  .carousel-year { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758; border: 1px solid rgba(246,183,88,0.6); padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
+  .carousel-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; margin-bottom: 4px; }
+  .carousel-desc { font-size: 15px; color: rgba(240,240,234,0.85); max-width: 600px; }
+  .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(3,3,46,0.7); border: 1px solid rgba(86,174,255,0.5); color: #f0f0ea; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; transition: all 0.2s; }
+  .carousel-arrow:hover { background: #56aeff; color: #060644; }
+  .carousel-arrow.prev { left: 14px; }
+  .carousel-arrow.next { right: 14px; }
+  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+  .carousel-dot { width: 9px; height: 9px; border-radius: 50%; border: none; background: rgba(86,174,255,0.3); cursor: pointer; transition: all 0.2s; padding: 0; }
+  .carousel-dot.active { background: #56aeff; width: 24px; border-radius: 999px; }
+
+  /* STAT CARDS */
+  .stat-card { padding: 24px; border: 1px solid rgba(246,183,88,0.3); border-radius: 16px; background: linear-gradient(135deg, rgba(246,183,88,0.08) 0%, rgba(0,73,149,0.15) 100%); position: relative; overflow: hidden; }
+  .stat-card::before { content: ''; position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; border-radius: 50%; background: rgba(246,183,88,0.08); }
+  .stat-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(28px, 3vw, 36px); color: #f6b758; line-height: 1.1; margin-bottom: 4px; position: relative; }
+  .stat-label { font-size: 13px; color: rgba(240,240,234,0.75); position: relative; }
+
+  /* QUOTE CARDS */
+  .quote-card { flex: 1 1 340px; position: relative; overflow: hidden; border-radius: 18px; padding: 48px 36px; border: 1px solid rgba(246,183,88,0.3); background-size: cover; background-position: center; min-height: 280px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+  .quote-card.quran { background-image: linear-gradient(160deg, rgba(3,3,46,0.88) 0%, rgba(0,73,149,0.85) 100%), url('images/quote-quran.jpg'); }
+  .quote-card.hadith { background-image: linear-gradient(160deg, rgba(3,3,46,0.88) 0%, rgba(120,80,20,0.7) 100%), url('images/quote-hadith.jpg'); }
+  .quote-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(246,183,88,0.15); border: 1px solid rgba(246,183,88,0.4); display: flex; align-items: center; justify-content: center; }
+  .quote-text { font-family: 'Space Grotesk', sans-serif; font-size: clamp(18px, 2vw, 22px); line-height: 1.45; font-weight: 500; color: #f0f0ea; }
+  .quote-ref { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #f6b758; }
+
+  /* HOW IT WORKS */
+  .step-card { flex: 1 1 220px; padding: 24px 22px; border: 1px solid rgba(86,174,255,0.22); border-radius: 14px; background: rgba(6,6,68,0.7); display: flex; flex-direction: column; gap: 10px; }
+  .step-num { font-family: 'JetBrains Mono', monospace; font-size: 22px; color: #56aeff; }
+  .step-title { font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700; }
+  .step-desc { font-size: 14.5px; color: rgba(240,240,234,0.75); }
+
+  /* SCROLL ARROW */
+  @keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+  .scroll-arrow { display: inline-block; animation: bounceDown 1.6s infinite; }
+</style>
+</head>
+<body class="campaign-active">
+
+<div style="width: 100%; background: #060644; color: #f0f0ea; font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.6">
+
+<!-- NAV -->
+<div id="header-placeholder" style="position: sticky; top: 0; z-index: 100;"></div>
+
+<!-- ═══════════════════════ HERO: LIVE CAMPAIGN ═══════════════════════ -->
+<div class="campaign-active-only" style="background-color: #03032e; background-image: radial-gradient(circle at 80% 20%, rgba(246,183,88,0.18), transparent 55%), radial-gradient(circle at 15% 80%, rgba(0,119,178,0.35), transparent 55%); border-bottom: 1px solid rgba(246,183,88,0.25)">
+
+  <!-- Reduced padding: 40px top, 40px bottom -->
+  <div style="max-width: 1200px; margin: 0 auto; padding: 50px 32px 50px; display: flex; flex-wrap: wrap; align-items: center; gap: 40px">
+
+    <!-- Left Text & Live Stats -->
+    <div style="flex: 1 1 50%; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+
+      <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 10px; padding: 6px 14px; border: 1px solid rgba(246,183,88,0.6); border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758; background: rgba(246,183,88,0.08)">
+        <span class="live-dot"></span> Ramadan <span id="hero-year">2026</span> · Campaign Live
+      </div>
+
+      <!-- Slightly smaller max font size -->
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(32px, 4vw, 48px); line-height: 1.05; letter-spacing: -0.02em;">
+        This Ramadan,<br><span style="color: #f6b758">feed a family.</span>
+      </h1>
+
+      <p style="margin: 0; max-width: 500px; color: rgba(240,240,234,0.85); font-size: 16px;">
+        Join our largest annual programme. Every grocery package provides a family with a full month of essential food, delivered with dignity.
+      </p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 4px">
+        <a class="btn-glow-gold" href="#donate-section" style="color: #060644; background: #f6b758; padding: 12px 24px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 8px;">
+          Donate Now <span class="scroll-arrow">↓</span>
+        </a>
+        <a href="#gallery" style="color: #f0f0ea; border: 1.5px solid rgba(246,183,88,0.5); padding: 11px 24px; border-radius: 10px; font-weight: 500; font-size: 15px;">See past campaigns</a>
+      </div>
+
+      <!-- Live Stats In Hero (Tighter Padding) -->
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 8px; width: 100%;">
+        <div class="stat-card" style="padding: 16px 14px; min-width: 0;">
+          <div class="stat-value" id="stat-collection" style="font-size: clamp(22px, 2.5vw, 28px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">0</div>
+          <div class="stat-label" style="font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Total Collected [BDT]</div>
+        </div>
+        <div class="stat-card" style="padding: 16px 14px; min-width: 0;">
+          <div class="stat-value" id="stat-packages" style="font-size: clamp(22px, 2.5vw, 28px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">0</div>
+          <div class="stat-label" style="font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Packages</div>
+        </div>
+        <div class="stat-card" style="padding: 16px 14px; min-width: 0;">
+          <div class="stat-value" id="stat-people" style="font-size: clamp(22px, 2.5vw, 28px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">0</div>
+          <div class="stat-label" style="font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">People Engaged</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: 4:3 Landscape Image Card (Max-height restricted) -->
+    <div style="flex: 1 1 45%; min-width: 0; display: flex; justify-content: center">
+      <div class="hero-img-wrapper" style="max-width: 480px; aspect-ratio: 4 / 3;">
+        <img src="images/ramadan-package.jpg" alt="Ramadan Grocery Package Contents" onerror="this.style.display='none'">
+
+        <div class="hero-img-text" style="padding: 28px 24px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #f6b758; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px;">Inside the Package</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: #f0f0ea; line-height: 1.2;">A full month of essentials for a family in need.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════ HERO: OFF-SEASON ═══════════════════════ -->
+<div class="campaign-off-only" style="background-color: #03032e; background-image: radial-gradient(circle at 80% 20%, rgba(246,183,88,0.12), transparent 55%), radial-gradient(circle at 15% 80%, rgba(0,119,178,0.3), transparent 55%); border-bottom: 1px solid rgba(246,183,88,0.2)">
+  <div style="max-width: 900px; margin: 0 auto; padding: 72px 32px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px">
+    <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(246,183,88,0.12); border: 1px solid rgba(246,183,88,0.4); display: flex; align-items: center; justify-content: center">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f6b758" stroke-width="1.6"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6b758">Next Campaign</div>
+    <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(32px, 5vw, 48px); line-height: 1.1; letter-spacing: -0.02em;">Our Ramadan <span id="hero-year-off">2026</span> Campaign begins soon.</h1>
+    <p style="margin: 0; max-width: 600px; color: rgba(240,240,234,0.85); font-size: 17px;">Donations and registration will open as Ramadan approaches. In the meantime, explore the impact from our past campaigns below, or support our work year-round.</p>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 8px">
+      <a href="membership.html" class="btn-glow-gold" style="color: #060644; background: #f6b758; padding: 14px 28px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px;">Join the Weekly Scheme</a>
+      <a href="donate.html" style="color: #f0f0ea; border: 1.5px solid rgba(246,183,88,0.5); padding: 13px 28px; border-radius: 10px; font-weight: 500; font-size: 16px;">Give Once</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ TRUST STRIP ═══════════════════════ -->
+<div style="border-bottom: 1px solid rgba(86,174,255,0.15); background: #03032e">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 24px 32px; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px; color: rgba(240,240,234,0.9); font-weight: 500;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f6b758" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      4 Successful Campaigns
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px; color: rgba(240,240,234,0.9); font-weight: 500;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f6b758" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+      Zakah-Verified Recipients
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 15px; color: rgba(240,240,234,0.9); font-weight: 500;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f6b758" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+      100% Delivered with Dignity
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ DONATION SECTION ═══════════════════════ -->
+<div id="donate-section" class="campaign-active-only" style="background: rgba(0,73,149,0.12); border-top: 1px solid rgba(246,183,88,0.2); border-bottom: 1px solid rgba(246,183,88,0.2)">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 64px 32px">
+    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758">Support the Campaign</div>
+      <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 32px; letter-spacing: -0.01em;">How to donate</h2>
+      <p style="margin: 8px 0 0; color: rgba(240,240,234,0.8); font-size: 15px; max-width: 640px">Choose your preferred method below. Please mention <strong style="color: #f6b758">"RAMADAN"</strong> in the reference note so your contribution is allocated correctly.</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 24px">
+      <!-- bKash Card -->
+      <div style="flex: 1 1 340px; padding: 32px; border: 1px solid rgba(246,183,88,0.3); border-radius: 16px; background: rgba(0,73,149,0.2)">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 16px">
+          <div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #f6b758; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">Mobile Banking</div>
+            <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px;">bKash</h3>
+          </div>
+          <div style="background: rgba(240,240,234,0.1); padding: 6px 14px; border-radius: 999px; font-size: 12px; color: rgba(240,240,234,0.9); font-weight: 700;">Send Money Only</div>
+        </div>
+        <div style="background: #03032e; border: 1px solid rgba(246,183,88,0.25); border-radius: 10px; padding: 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 20px; color: #f0f0ea; letter-spacing: 1px;">+880 1640-835076</div>
+          <button class="copy-btn" onclick="copyText('+8801640835076', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            Copy
+          </button>
+        </div>
+        <p style="margin: 0; font-size: 14.5px; color: rgba(240,240,234,0.8); line-height: 1.5;">
+          Use the <strong>"Send Money"</strong> feature on your bKash app. (Do not use "Payment").<br>
+          <em style="color: #f6b758;">Reference: "RAMADAN" or "ZAKAH"</em>
+        </p>
+      </div>
+
+      <!-- Bank Card -->
+      <div style="flex: 1 1 340px; padding: 32px; border: 1px solid rgba(246,183,88,0.3); border-radius: 16px; background: rgba(0,73,149,0.2)">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin-bottom: 20px">
+          <div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #f6b758; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">Direct Transfer</div>
+            <h3 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 24px;">Bank Account</h3>
+          </div>
+          <div style="width: 40px; height: 40px; border-radius: 8px; background: rgba(246,183,88,0.12); display: flex; align-items: center; justify-content: center;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f6b758" stroke-width="2"><path d="M3 21h18"></path><path d="M3 10h18"></path><path d="M5 6l7-3 7 3"></path><path d="M4 10v11"></path><path d="M20 10v11"></path><path d="M8 14v3"></path><path d="M12 14v3"></path><path d="M16 14v3"></path></svg>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(246,183,88,0.15); padding-bottom: 8px;">
+            <span style="color: rgba(240,240,234,0.6); font-size: 14px;">Account Name</span>
+            <span style="font-weight: 700; font-size: 15px;">Al Ihsan Foundation</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(246,183,88,0.15); padding-bottom: 8px;">
+            <span style="color: rgba(240,240,234,0.6); font-size: 14px;">Account Number</span>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-weight: 700; font-size: 15px; font-family: 'JetBrains Mono', monospace;">0127101037164</span>
+              <button class="copy-btn" onclick="copyText('0127101037164', this)" style="padding: 4px 8px; font-size: 11px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              </button>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(246,183,88,0.15); padding-bottom: 8px;">
+            <span style="color: rgba(240,240,234,0.6); font-size: 14px;">Bank Name</span>
+            <span style="font-weight: 500; font-size: 15px;">Sonali Bank PLC</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(246,183,88,0.15); padding-bottom: 8px;">
+            <span style="color: rgba(240,240,234,0.6); font-size: 14px;">Branch</span>
+            <span style="font-weight: 500; font-size: 15px;">Uttara Model Town Corp.</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(246,183,88,0.15); padding-bottom: 8px;">
+            <span style="color: rgba(240,240,234,0.6); font-size: 14px;">Branch Code</span>
+            <span style="font-weight: 500; font-size: 15px;">01271</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: rgba(240,240,234,0.6); font-size: 14px;">Routing Number</span>
+            <span style="font-weight: 500; font-size: 15px; font-family: 'JetBrains Mono', monospace;">200264691</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ IMAGE CAROUSEL ═══════════════════════ -->
+<div id="gallery" style="max-width: 1200px; margin: 0 auto; padding: 64px 32px 16px">
+  <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758">Campaign Archive</div>
+    <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 32px; letter-spacing: -0.01em;">Moments from past campaigns</h2>
+  </div>
+
+  <div class="carousel">
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="carouselTrack"></div>
+    </div>
+    <button class="carousel-arrow prev" onclick="prevSlide()" aria-label="Previous slide">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="carousel-arrow next" onclick="nextSlide()" aria-label="Next slide">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+  </div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</div>
+
+<!-- ═══════════════════════ QURAN & HADITH QUOTES ═══════════════════════ -->
+<div style="background: rgba(0,73,149,0.1); border-top: 1px solid rgba(86,174,255,0.15); border-bottom: 1px solid rgba(86,174,255,0.15); margin-top: 64px">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 64px 32px; display: flex; flex-direction: column; gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 8px; text-align: center; max-width: 700px; margin: 0 auto">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758">The Spirit of Giving</div>
+      <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(26px, 3.5vw, 36px); letter-spacing: -0.01em;">Essence of Sadaqah</h2>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; gap: 24px">
+      <div class="quote-card quran">
+        <div class="quote-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f6b758" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        </div>
+        <p class="quote-text">"The example of those who spend their wealth in the way of Allah is like a seed which grows seven spikes; in each spike is a hundred grains. And Allah multiplies His reward for whom He wills."</p>
+        <div class="quote-ref">— Surah Al-Baqarah 2:261</div>
+      </div>
+      <div class="quote-card hadith">
+        <div class="quote-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f6b758" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <p class="quote-text">"The best of people are those who bring most benefit to the rest of mankind."</p>
+        <div class="quote-ref">— Prophet Muhammad ﷺ · Tabarani</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ HOW IT WORKS ═══════════════════════ -->
+<div style="max-width: 1200px; margin: 0 auto; padding: 64px 32px">
+  <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #56aeff">Our Process</div>
+    <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 32px; letter-spacing: -0.01em;">From donation to delivery</h2>
+  </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 16px">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-title">Collect</div>
+      <div class="step-desc">We gather contributions from members, open donors, and partners throughout the campaign window.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-title">Pack</div>
+      <div class="step-desc">Volunteers assemble a full month's worth of essential groceries into each package.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-title">Distribute</div>
+      <div class="step-desc">Packages are hand-delivered to verified, eligible families before Ramadan begins.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ OFF-SEASON CTA ═══════════════════════ -->
+<div class="campaign-off-only" style="max-width: 1200px; margin: 0 auto; padding: 64px 32px; text-align: center">
+  <div style="max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px">
+    <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.01em;">Support us year-round</h2>
+    <p style="margin: 0; color: rgba(240,240,234,0.85); font-size: 16px;">Your weekly contributions power our year-round emergency relief, community welfare, and the build-up to next Ramadan.</p>
+    <a href="membership.html" class="btn-glow-gold" style="color: #060644; background: #f6b758; padding: 14px 28px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px;">Join the Weekly Scheme →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div id="footer-placeholder"></div>
+
+<!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+<script>
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(function() {
+    var originalHTML = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      btn.innerHTML = originalHTML;
+    }, 2000);
+  }).catch(function(err) { console.error('Copy failed:', err); });
+}
+
+// CONFIGURATION
+const CAMPAIGN_CONFIG = {
+  active: true,
+  year: 2026,
+  statsSource: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr4IZCcq3P2j2b99zex7fU2Lu9TwSFFoGIL7IErpqHkZ81Lx0DzRhs8Mwv5QYtRQ8Nxt2e_M-zQFQL/pub?gid=0&single=true&output=csv',
+};
+
+// MODE TOGGLE
+(function applyMode() {
+  document.body.classList.remove('campaign-active', 'campaign-off');
+  document.body.classList.add(CAMPAIGN_CONFIG.active ? 'campaign-active' : 'campaign-off');
+  const y1 = document.getElementById('hero-year');
+  const y2 = document.getElementById('hero-year-off');
+  if (y1) y1.textContent = CAMPAIGN_CONFIG.year;
+  if (y2) y2.textContent = CAMPAIGN_CONFIG.year;
+})();
+
+// CAROUSEL
+const SLIDES = [
+  { src: 'images/ramadan-2024.jpg', year: '2024', title: 'Our First Ramadan', desc: '800+ grocery packages hand-delivered to local families across the community.' },
+  { src: 'images/ramadan-2025.jpg', year: '2025', title: 'Growing Together', desc: '1,500+ families supported with a full month of essential food supplies.' },
+  { src: 'images/ramadan-2026.jpg', year: '2026', title: 'A Record Year', desc: '3,000+ packages packed and delivered before Eid — our largest campaign yet.' }
+];
+
+const track = document.getElementById('carouselTrack');
+const dotsContainer = document.getElementById('carouselDots');
+let currentSlide = 0;
+let autoPlayTimer = null;
+
+function buildCarousel() {
+  SLIDES.forEach(function (slide, i) {
+    const div = document.createElement('div');
+    div.className = 'carousel-slide';
+    div.innerHTML =
+      '<img src="' + slide.src + '" alt="Ramadan ' + slide.year + '" onerror="this.style.display=\'none\'">' +
+      '<div class="carousel-caption">' +
+        '<span class="carousel-year">' + slide.year + '</span>' +
+        '<div class="carousel-title">' + slide.title + '</div>' +
+        '<div class="carousel-desc">' + slide.desc + '</div>' +
+      '</div>';
+    track.appendChild(div);
+
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.addEventListener('click', function () { goToSlide(i); resetAutoPlay(); });
+    dotsContainer.appendChild(dot);
+  });
+  updateDots();
+}
+
+function goToSlide(i) {
+  currentSlide = (i + SLIDES.length) % SLIDES.length;
+  track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+  updateDots();
+}
+function nextSlide() { goToSlide(currentSlide + 1); resetAutoPlay(); }
+function prevSlide() { goToSlide(currentSlide - 1); resetAutoPlay(); }
+function updateDots() { document.querySelectorAll('.carousel-dot').forEach(function (d, i) { d.classList.toggle('active', i === currentSlide); }); }
+function startAutoPlay() { autoPlayTimer = setInterval(function () { goToSlide(currentSlide + 1); }, 6000); }
+function resetAutoPlay() { clearInterval(autoPlayTimer); startAutoPlay(); }
+
+buildCarousel();
+startAutoPlay();
+
+const carouselEl = document.querySelector('.carousel');
+if (carouselEl) {
+  carouselEl.addEventListener('mouseenter', function () { clearInterval(autoPlayTimer); });
+  carouselEl.addEventListener('mouseleave', startAutoPlay);
+}
+
+// LIVE STATS LOADER
+async function loadStats() {
+  if (!CAMPAIGN_CONFIG.active) return;
+  let data = { Collection: 0, Packages: 0, People: 0 };
+
+  try {
+    const res = await fetch(CAMPAIGN_CONFIG.statsSource, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+    let text = await res.text();
+    text = text.replace(/^\uFEFF/, '');
+
+    if (text.trim().startsWith('{')) {
+      data = JSON.parse(text);
+    } else {
+      const lines = text.trim().split(/\r?\n/);
+      if (lines.length < 2) throw new Error("CSV data is empty.");
+      function splitCSV(line) {
+        const result = []; let current = ''; let inQuotes = false;
+        for (let i = 0; i < line.length; i++) {
+          const char = line[i];
+          if (char === '"') inQuotes = !inQuotes;
+          else if (char === ',' && !inQuotes) { result.push(current); current = ''; }
+          else current += char;
+        }
+        result.push(current); return result.map(v => v.trim());
+      }
+      const headers = splitCSV(lines[0]).map(h => h.replace(/^"|"$/g, ''));
+      const values = splitCSV(lines[1]).map(v => v.replace(/^"|"$/g, ''));
+      headers.forEach((h, i) => { if (values[i] !== undefined) data[h] = values[i]; });
+    }
+  } catch (err) { console.error('Stats fetch failed:', err); }
+
+  function cleanNumber(val) { if (!val) return 0; return Number(String(val).replace(/[^0-9.]/g, '')) || 0; }
+  function pick(obj, key) { for (const k in obj) { if (k.toLowerCase() === key.toLowerCase()) return obj[k]; } return 0; }
+
+  animateCount(document.getElementById('stat-collection'), cleanNumber(pick(data, 'collection')));
+  animateCount(document.getElementById('stat-packages'),   cleanNumber(pick(data, 'packages')));
+  animateCount(document.getElementById('stat-people'),     cleanNumber(pick(data, 'people')));
+}
+
+function animateCount(el, target) {
+  if (!el) return;
+  const duration = 1400; const startTime = performance.now();
+  function frame(now) {
+    const p = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(target * eased).toLocaleString();
+    if (p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+loadStats();
+
+// INJECT HEADER & FOOTER
+document.addEventListener("DOMContentLoaded", () => {
+  const favicon = document.createElement('link');
+  favicon.rel = 'icon'; favicon.type = 'image/png'; favicon.href = 'images/logo.png'; document.head.appendChild(favicon);
+
+  const headerPlaceholder = document.getElementById("header-placeholder");
+  const footerPlaceholder = document.getElementById("footer-placeholder");
+
+  Promise.all([
+    fetch("header.html").then(res => res.text()),
+    fetch("footer.html").then(res => res.text())
+  ])
+  .then(([headerData, footerData]) => {
+    if (headerPlaceholder) {
+      headerPlaceholder.innerHTML = headerData;
+      let currentPage = window.location.pathname.split("/").pop();
+      if (currentPage === "" || currentPage === "/") currentPage = "index.html";
+      const navLinks = headerPlaceholder.querySelectorAll(".nav-link");
+      navLinks.forEach(link => { if (link.getAttribute("href") === currentPage) link.classList.add("active"); });
+    }
+    if (footerPlaceholder) footerPlaceholder.innerHTML = footerData;
+  })
+  .catch(error => console.error("Error loading components:", error));
+});
+</script>
+
+</div>
+</body>
+</html>
