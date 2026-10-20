@@ -1,13 +1,14 @@
 <div style="border-bottom: 1px solid rgba(86,174,255,0.18); background: #03032e; position: relative; z-index: 100;">
-  <div class="header-container" style="max-width: 1200px; margin: 0 auto; padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+  <!-- Add flex-wrap: nowrap and gap: clamp(...) -->
+  <div class="header-container" style="max-width: 1200px; margin: 0 auto; padding: 18px 32px; display: flex; flex-wrap: nowrap; align-items: center; justify-content: space-between; gap: clamp(10px, 2vw, 32px);">
 
     <!-- Logo -->
-    <a href="index.html" style="display: flex; align-items: center; gap: 16px; color: #f0f0ea; text-decoration: none; z-index: 101;">
+    <a href="index.html" style="display: flex; align-items: center; gap: 16px; color: #f0f0ea; text-decoration: none; flex-shrink: 0; z-index: 101;">
       <img src="images/logo.png" alt="Al Ihsan Logo" style="width: 64px; height: 64px; object-fit: contain; border-radius: 8px; margin: -12px 0;">
       <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.01em">Al Ihsan</div>
     </a>
 
-    <!-- Mobile Hamburger Button (Hidden on Desktop) -->
+    <!-- Mobile Hamburger Button -->
     <button id="mobile-menu-toggle" class="mobile-menu-btn">
       <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#56aeff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -16,14 +17,15 @@
       </svg>
     </button>
 
-    <!-- Nav Links (Toggled on Mobile) -->
-    <div id="nav-links" class="nav-links-wrapper" style="display: flex; align-items: center; gap: 28px; font-size: 15px; font-weight: 400">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="donate.html" class="nav-link">Donate</a>
-      <a href="ramadan.html" class="nav-link">Ramadan Campaign</a>
-      <a href="campaigns.html" class="nav-link">Campaigns</a>
-      <a href="about.html" class="nav-link">About</a>
-      <a href="membership.html" class="btn-glow-blue" style="color: #060644; background: #56aeff; padding: 10px 20px; border-radius: 8px; font-weight: 700; text-decoration: none; text-align: center;">Become a Member</a>
+    <!-- Nav Links -->
+    <!-- Add flex-wrap: nowrap and flex-shrink: 0 -->
+    <div id="nav-links" class="nav-links-wrapper" style="display: flex; flex-wrap: nowrap; align-items: center; gap: clamp(12px, 2vw, 28px); font-size: 15px; font-weight: 400">
+      <a href="index.html" class="nav-link" style="white-space: nowrap;">Home</a>
+      <a href="donate.html" class="nav-link" style="white-space: nowrap;">Donate</a>
+      <a href="ramadan.html" class="nav-link" style="white-space: nowrap;">Ramadan Campaign</a>
+      <a href="campaigns.html" class="nav-link" style="white-space: nowrap;">Campaigns</a>
+      <a href="about.html" class="nav-link" style="white-space: nowrap;">About</a>
+      <a href="membership.html" class="btn-glow-blue" style="color: #060644; background: #56aeff; padding: 10px 20px; border-radius: 8px; font-weight: 700; text-decoration: none; text-align: center; white-space: nowrap;">Become a Member</a>
     </div>
 
   </div>
