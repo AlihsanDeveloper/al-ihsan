@@ -150,6 +150,19 @@
   gap: 16px;
 }
 
+/* For mid-size screens like "Desktop Site" on phones */
+@media (max-width: 1150px) {
+  .header-container {
+    padding: 16px 20px !important;
+  }
+  .nav-links-wrapper {
+    gap: 16px !important;
+  }
+  .nav-links-wrapper a {
+    font-size: 14px !important;
+  }
+}
+
 /* =========================================
    MOBILE HEADER FIX
    ========================================= */
