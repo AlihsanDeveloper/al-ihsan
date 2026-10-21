@@ -341,16 +341,36 @@
       fetch("footer.html").then(res => res.text())
     ])
     .then(([headerData, footerData]) => {
+      // Inject Header
       if (headerPlaceholder) {
         headerPlaceholder.innerHTML = headerData;
+
+        // --- MOBILE MENU TOGGLE LOGIC ---
+        const mobileBtn = document.getElementById("mobile-menu-toggle");
+        const navLinksWrapper = document.getElementById("nav-links");
+        if (mobileBtn && navLinksWrapper) {
+          mobileBtn.addEventListener("click", () => {
+            navLinksWrapper.classList.toggle("active");
+          });
+        }
+        // --------------------------------
+
+        // Auto-highlight active nav link
         let currentPage = window.location.pathname.split("/").pop();
         if (currentPage === "" || currentPage === "/") currentPage = "index.html";
+
         const navLinks = headerPlaceholder.querySelectorAll(".nav-link");
         navLinks.forEach(link => {
-          if (link.getAttribute("href") === currentPage) link.classList.add("active");
+          if (link.getAttribute("href") === currentPage) {
+            link.classList.add("active");
+          }
         });
       }
-      if (footerPlaceholder) footerPlaceholder.innerHTML = footerData;
+
+      // Inject Footer
+      if (footerPlaceholder) {
+        footerPlaceholder.innerHTML = footerData;
+      }
     })
     .catch(error => console.error("Error loading components:", error));
   });
