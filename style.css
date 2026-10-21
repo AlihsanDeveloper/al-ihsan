@@ -192,7 +192,7 @@
 /* =========================================
    ULTIMATE MOBILE RESPONSIVENESS
    ========================================= */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   /* 1. Stop all horizontal scrolling completely */
   html, body {
     width: 100% !important;
@@ -266,7 +266,7 @@
   padding: 8px;
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 900px) {
   /* 1. Keep Header in one row */
   .header-container {
     padding: 12px 20px !important;
