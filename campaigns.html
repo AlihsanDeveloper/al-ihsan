@@ -140,7 +140,7 @@ var DEFAULT_EVENTS = [
     "type": "Ramadan",
     "title": "Ramadan Grocery Drive 2026",
     "itemsDistributed": 3000,
-    "peopleHelped": 1200,
+    "Donors": 1200,
     "expense": 1500000,
     "imageUrl": "images/ramadan-2026.jpg",
     "reportUrl": "reports/ramadan-2026.pdf"
@@ -190,7 +190,7 @@ function renderEvents() {
   
   list.forEach(function(item) {
     totalExpense += Number(item.expense) || 0;
-    totalPeople += Number(item.peopleHelped) || 0;
+    totalPeople += Number(item.Donors) || 0;
   });
 
   document.getElementById('st-camp').textContent = String(list.length).padStart(2, '0');
@@ -206,7 +206,7 @@ function renderEvents() {
       : '<span style="padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(86,174,255,0.6); color: #56aeff; font-family: \'JetBrains Mono\', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase">' + item.type + '</span>';
 
     let items = Number(item.itemsDistributed) || 0;
-    let people = Number(item.peopleHelped) || 0;
+    let people = Number(item.Donors) || 0;
     let expense = Number(item.expense) || 0;
 
     // Clean Receipt Stats

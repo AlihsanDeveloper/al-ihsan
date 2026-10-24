@@ -291,7 +291,7 @@ async function loadLatestCampaign() {
       "type": "Ramadan",
       "title": "Ramadan Grocery Drive 2026",
       "itemsDistributed": 3000,
-      "peopleHelped": 1200,
+      "Donors": 1200,
       "expense": 1500000,
       "imageUrl": "images/ramadan-2026.jpg",
       "reportUrl": "reports/ramadan-2026.pdf"
@@ -318,7 +318,7 @@ async function loadLatestCampaign() {
   const latest = ramadanCampaigns[0];
 
   let items = Number(latest.itemsDistributed) || 0;
-  let people = Number(latest.peopleHelped) || 0;
+  let people = Number(latest.Donors) || 0;
   let expense = Number(latest.expense) || 0;
 
   // Build the image HTML with the vignette wrapper
