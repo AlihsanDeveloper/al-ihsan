@@ -226,7 +226,7 @@
       <div>
         <label class="form-label">Name / Alias <span class="req-star">*</span></label>
         <div style="font-size: 13px; color: rgba(240,240,234,0.6); margin-bottom: 6px; margin-top: -4px;">Displayed on rosters instead of your real name</div>
-        <input type="text" name="alias" placeholder="e.g., Hidden_Ihsan_786" required>
+        <input type="text" name="alias" placeholder="e.g., BLUE BARON" required>
       </div>
 
       <!-- Email & OTP -->
@@ -397,22 +397,45 @@
         const email = emailInput.value.trim();
         if (!email) return alert('Please enter your email address first.');
 
+        // 1. Disable button while processing
         sendBtn.textContent = 'Sending...';
         sendBtn.disabled = true;
 
-        const { error } = await supabaseClient.auth.signInWithOtp({
-          email: email,
-          options: { shouldCreateUser: true }
-        });
+        try {
+          const { error } = await supabaseClient.auth.signInWithOtp({
+            email: email,
+            options: { shouldCreateUser: true }
+          });
 
-        if (error) {
-          alert('Error sending code: ' + error.message);
+          // If Supabase returns an error object, throw it to the catch block
+          if (error) throw error;
+
+          // 2. Success! Reveal the OTP field and start the countdown
+          otpSection.style.display = 'block';
+
+          let countdown = 120;
+          sendBtn.textContent = `Wait ${countdown}s`;
+          sendBtn.style.background = '#333366'; // Visually show it's locked
+
+          const timer = setInterval(() => {
+            countdown--;
+            if (countdown <= 0) {
+              clearInterval(timer);
+              sendBtn.textContent = 'Resend Code';
+              sendBtn.disabled = false;
+              sendBtn.style.background = '#56aeff'; // Reset color
+            } else {
+              sendBtn.textContent = `Wait ${countdown}s`;
+            }
+          }, 1000);
+
+        } catch (err) {
+          // 3. If anything goes wrong (network error, rate limit, etc.)
+          // Reset the button immediately so they can try again
+          alert('Error sending code: ' + (err.message || 'Please try again.'));
           sendBtn.textContent = 'Send Code';
           sendBtn.disabled = false;
-        } else {
-          sendBtn.textContent = 'Code Sent';
-          sendBtn.style.background = '#4ade80';
-          otpSection.style.display = 'block';
+          sendBtn.style.background = '#56aeff';
         }
       });
 
@@ -424,37 +447,60 @@
 
         verifyBtn.textContent = 'Verifying...';
 
-        const { data, error } = await supabaseClient.auth.verifyOtp({
-          email: email,
-          token: token,
-          type: 'signup'
-        });
+        // 1. Try 'signup' first, fallback to 'email'
+        let { data, error } = await supabaseClient.auth.verifyOtp({ email, token, type: 'signup' });
+        if (error) {
+          const fallback = await supabaseClient.auth.verifyOtp({ email, token, type: 'email' });
+          data = fallback.data;
+          error = fallback.error;
+        }
 
         if (error) {
           verifyMsg.style.display = 'block';
           verifyMsg.style.color = '#ff8888';
           verifyMsg.textContent = 'Invalid or expired code. Please try again.';
           verifyBtn.textContent = 'Verify';
-        } else {
-          isVerified = true;
-          accessToken = data.session.access_token;
+          return;
+        }
 
+        // 2. CHECK FOR THE "SUBMITTED" STAMP
+        const isAlreadySubmitted = data.user?.user_metadata?.submitted === true;
+
+        if (isAlreadySubmitted) {
+          // Block them politely
           verifyMsg.style.display = 'block';
-          verifyMsg.style.color = '#4ade80';
-          verifyMsg.textContent = 'Email verified successfully!';
+          verifyMsg.style.color = '#f6b758'; // Gold color
+          verifyMsg.innerHTML = '<strong>Already Registered:</strong> This email is already an active Al Ihsan member. No further action is required. JazakAllahu Khayran!';
+
           otpInput.disabled = true;
-          verifyBtn.textContent = 'Verified ✓';
+          verifyBtn.textContent = 'Verified';
           verifyBtn.disabled = true;
           verifyBtn.style.background = '#333366';
 
-          submitBtn.disabled = false;
-          submitBtn.style.background = '#56aeff';
-          submitBtn.style.color = '#060644';
-          submitBtn.style.cursor = 'pointer';
+          // DO NOT unlock the submit button
+          return;
         }
+
+        // 3. IF THEY ARE NOT SUBMITTED, UNLOCK THE FORM
+        isVerified = true;
+        accessToken = data.session.access_token;
+
+        verifyMsg.style.display = 'block';
+        verifyMsg.style.color = '#4ade80';
+        verifyMsg.textContent = 'Email verified successfully! Please complete your application below.';
+
+        otpInput.disabled = true;
+        verifyBtn.textContent = 'Verified ✓';
+        verifyBtn.disabled = true;
+        verifyBtn.style.background = '#333366';
+
+        submitBtn.disabled = false;
+        submitBtn.style.background = '#56aeff';
+        submitBtn.style.color = '#060644';
+        submitBtn.style.cursor = 'pointer';
       });
 
-      // --- Secure Form Submission ---
+      // --- Form Submission Block ---
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
@@ -492,6 +538,18 @@
           const result = await response.json();
 
           if (result.status === 'success') {
+
+            // ⚡ STAMP USER AS SUBMITTED IN SUPABASE ⚡
+            try {
+              await supabaseClient.auth.updateUser({
+                data: { submitted: true }
+              });
+              console.log("Successfully stamped user in Supabase.");
+            } catch (stampError) {
+              console.error("Failed to stamp user:", stampError);
+            }
+
+            // Hide the form and show success
             form.style.display = 'none';
             formAlert.style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
