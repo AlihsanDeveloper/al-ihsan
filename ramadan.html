@@ -162,17 +162,59 @@
 
 <!-- ═══════════════════════ HERO: OFF-SEASON ═══════════════════════ -->
 <div class="campaign-off-only" style="background-color: #03032e; background-image: radial-gradient(circle at 80% 20%, rgba(246,183,88,0.12), transparent 55%), radial-gradient(circle at 15% 80%, rgba(0,119,178,0.3), transparent 55%); border-bottom: 1px solid rgba(246,183,88,0.2)">
-  <div style="max-width: 900px; margin: 0 auto; padding: 72px 32px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px">
-    <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(246,183,88,0.12); border: 1px solid rgba(246,183,88,0.4); display: flex; align-items: center; justify-content: center">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#f6b758" stroke-width="1.6"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+  <div class="mobile-stack" style="max-width: 1200px; margin: 0 auto; padding: 72px 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px;">
+
+    <!-- Left Side: Anticipation -->
+    <div style="flex: 1 1 400px; display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: inline-flex; align-self: flex-start; align-items: center; gap: 10px; padding: 7px 16px; border: 1px solid rgba(246,183,88,0.6); border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758; background: rgba(246,183,88,0.08)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f6b758" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        Next Campaign
+      </div>
+
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(32px, 5vw, 48px); line-height: 1.1; letter-spacing: -0.02em;">
+        Our Ramadan <span style="color:#f6b758;" id="hero-year-off"> 2027 </span> Campaign begins soon.
+      </h1>
+
+      <p style="margin: 0; max-width: 500px; color: rgba(240,240,234,0.85); font-size: 17px;">
+        Donations and registration will open as Ramadan approaches. Join our Weekly Scheme today to ensure you are already part of the movement when the campaign launches.
+      </p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px">
+        <a href="membership.html" class="btn-glow-gold" style="color: #060644; background: #f6b758; padding: 14px 28px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px;">Join the Weekly Scheme</a>
+        <a href="donate.html" style="color: #f0f0ea; border: 1.5px solid rgba(246,183,88,0.5); padding: 13px 28px; border-radius: 10px; font-weight: 500; font-size: 16px;">Give Once</a>
+      </div>
     </div>
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #f6b758">Next Campaign</div>
-    <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(32px, 5vw, 48px); line-height: 1.1; letter-spacing: -0.02em;">Our Ramadan <span id="hero-year-off">2026</span> Campaign begins soon.</h1>
-    <p style="margin: 0; max-width: 600px; color: rgba(240,240,234,0.85); font-size: 17px;">Donations and registration will open as Ramadan approaches. In the meantime, explore the impact from our past campaigns below, or support our work year-round.</p>
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 8px">
-      <a href="membership.html" class="btn-glow-gold" style="color: #060644; background: #f6b758; padding: 14px 28px; border-radius: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px;">Join the Weekly Scheme</a>
-      <a href="donate.html" style="color: #f0f0ea; border: 1.5px solid rgba(246,183,88,0.5); padding: 13px 28px; border-radius: 10px; font-weight: 500; font-size: 16px;">Give Once</a>
+
+    <!-- Right Side: Last Year's Impact (Dynamic) -->
+    <div style="flex: 1 1 400px; display: flex; justify-content: center;">
+      <div style="position: relative; width: 100%; max-width: 440px; padding: 32px; border-radius: 20px; border: 1px solid rgba(246,183,88,0.35); background: rgba(3,3,46,0.7); overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);">
+
+        <!-- Decorative Background SVG -->
+        <svg viewBox="0 0 400 400" style="position: absolute; top: -50px; right: -60px; width: 260px; height: 260px; opacity: 0.3" fill="none" stroke="#f6b758" stroke-width="1" aria-hidden="true"><rect x="100" y="100" width="200" height="200"></rect><rect x="100" y="100" width="200" height="200" transform="rotate(45 200 200)"></rect><circle cx="200" cy="200" r="190"></circle></svg>
+
+        <div style="position: relative; display: flex; flex-direction: column; gap: 16px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758;">
+            Last Year's Impact
+          </div>
+
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 24px; line-height: 1.2;">
+            Ramadan <span id="off-season-last-year">2025</span> Highlights
+          </div>
+
+          <!-- Receipt Stats Container (injected via JS) -->
+          <div id="off-season-stats-container" class="receipt-stats" style="margin: 8px 0; border-color: rgba(246,183,88,0.3); background: rgba(0,0,0,0.2);">
+            <span style="color: rgba(240,240,234,0.6);">Loading...</span>
+            <span style="color: #f6b758; font-weight: 700;">...</span>
+          </div>
+
+          <a href="campaigns.html" style="color: #f6b758; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; margin-top: 8px;">
+            View Full Campaign Archive
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
 
@@ -382,8 +424,8 @@ function copyText(text, btn) {
 
 // CONFIGURATION
 const CAMPAIGN_CONFIG = {
-  active: true,
-  year: 2026,
+  active: false,
+  year: 2027,
   statsSource: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr4IZCcq3P2j2b99zex7fU2Lu9TwSFFoGIL7IErpqHkZ81Lx0DzRhs8Mwv5QYtRQ8Nxt2e_M-zQFQL/pub?gid=0&single=true&output=csv',
 };
 
@@ -491,6 +533,53 @@ async function loadStats() {
   animateCount(document.getElementById('stat-people'),     cleanNumber(pick(data, 'people')));
 }
 
+/* ───────────────────────── OFF-SEASON STATS LOADER ───────────────────────── */
+async function loadOffSeasonStats() {
+  if (CAMPAIGN_CONFIG.active) return; // Only run if campaign is OFF
+
+  try {
+    const res = await fetch('./campaigns.json');
+    if (!res.ok) throw new Error("Failed to fetch");
+    const data = await res.json();
+
+    // 1. Filter for Ramadan campaigns
+    const ramadanCampaigns = data.filter(c => c.type === 'Ramadan');
+    if (ramadanCampaigns.length === 0) return;
+
+    // 2. Sort by year descending to get the most recent one
+    ramadanCampaigns.sort((a, b) => parseInt(b.year) - parseInt(a.year));
+    const latest = ramadanCampaigns[0];
+
+    // 3. Update the Year text
+    const yearEl = document.getElementById('off-season-last-year');
+    if (yearEl) yearEl.textContent = latest.year;
+
+    // 4. Build the receipt stats HTML
+    let items = Number(latest.itemsDistributed) || 0;
+    let people = Number(latest.Donors) || 0;
+    let expense = Number(latest.expense) || 0;
+
+    let statsHTML = `
+      <div style="display: grid; grid-template-columns: 90px 1fr; gap: 8px 12px; width: 100%;">
+        <span style="color: rgba(240,240,234,0.6);">Packages</span>
+        <span style="color: #f6b758; font-weight: 700;">: ${items.toLocaleString()}</span>
+
+        <span style="color: rgba(240,240,234,0.6);">Donors</span>
+        <span style="color: #f6b758; font-weight: 700;">: ${people.toLocaleString()}</span>
+
+        <span style="color: rgba(240,240,234,0.6);">Expense</span>
+        <span style="color: #f6b758; font-weight: 700;">: ৳ ${expense.toLocaleString()}</span>
+      </div>
+    `;
+
+    const container = document.getElementById('off-season-stats-container');
+    if (container) container.innerHTML = statsHTML;
+
+  } catch (err) {
+    console.warn("Could not load off-season stats:", err);
+  }
+}
+
 function animateCount(el, target) {
   if (!el) return;
   const duration = 1400; const startTime = performance.now();
@@ -504,6 +593,7 @@ function animateCount(el, target) {
 }
 
 loadStats();
+loadOffSeasonStats();
 
 // INJECT HEADER & FOOTER
 document.addEventListener("DOMContentLoaded", () => {
