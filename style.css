@@ -339,3 +339,13 @@
     left: 10px !important; /* Centers it with a small margin on the sides */
   }
 }
+
+/* Fix for the legal pages sidebar */
+.desktop-sidebar {
+  display: none; /* Hidden on mobile by default */
+}
+@media (min-width: 900px) {
+  .desktop-sidebar {
+    display: block; /* Shown on desktop */
+  }
+}
