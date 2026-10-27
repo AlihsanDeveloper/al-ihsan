@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alihsandeveloper.github.io/al-ihsan/sitemap.xml
