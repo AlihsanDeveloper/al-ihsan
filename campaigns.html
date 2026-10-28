@@ -183,6 +183,33 @@ function filterYear(y, el) {
   renderEvents();
 }
 
+// Animation function for the stat tiles
+function animateValue(obj, start, end, duration, prefix = '', isPadding = false) {
+  let startTimestamp = null;
+  const step = (timestamp) => {
+    if (!startTimestamp) startTimestamp = timestamp;
+    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    // easeOutQuart easing for a smooth slow-down at the end
+    const easeProgress = 1 - Math.pow(1 - progress, 4);
+    const currentVal = Math.floor(easeProgress * (end - start) + start);
+
+    // Format with commas and add prefix if needed
+    let displayVal = currentVal.toLocaleString();
+    if (isPadding) displayVal = String(currentVal).padStart(2, '0');
+    obj.textContent = prefix + displayVal;
+
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    } else {
+      // Ensure the final number lands exactly on target
+      let finalVal = end.toLocaleString();
+      if (isPadding) finalVal = String(end).padStart(2, '0');
+      obj.textContent = prefix + finalVal;
+    }
+  };
+  window.requestAnimationFrame(step);
+}
+
 // 4. RENDER THE TIMELINE
 function renderEvents() {
   var list = eventsData.filter(e => (activeType === 'ALL' || e.type === activeType) && (activeYear === 'ALL' || e.year === activeYear));
@@ -196,9 +223,20 @@ function renderEvents() {
     totalPeople += Number(item.Donors) || 0;
   });
 
-  document.getElementById('st-camp').textContent = String(list.length).padStart(2, '0');
-  document.getElementById('st-expense').textContent = '৳ ' + totalExpense.toLocaleString();
-  document.getElementById('st-people').textContent = totalPeople.toLocaleString();
+    // Get current values so we can animate from them
+  const stCamp = document.getElementById('st-camp');
+  const stExpense = document.getElementById('st-expense');
+  const stPeople = document.getElementById('st-people');
+
+  // Extract current numbers (remove non-digits to parse safely)
+  const currentCamp = parseInt(stCamp.textContent.replace(/\D/g, '')) || 0;
+  const currentExpense = parseInt(stExpense.textContent.replace(/\D/g, '')) || 0;
+  const currentPeople = parseInt(stPeople.textContent.replace(/\D/g, '')) || 0;
+
+  // Trigger the animations
+  animateValue(stCamp, currentCamp, list.length, 2000, '', true);
+  animateValue(stExpense, currentExpense, totalExpense, 4000, '৳ ', false);
+  animateValue(stPeople, currentPeople, totalPeople, 3000, '', false);
 
   // Render Cards
   document.getElementById('timeline-items').innerHTML = list.map((item, i) => {
