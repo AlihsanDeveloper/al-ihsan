@@ -58,7 +58,7 @@
   .carousel-slide { min-width: 100%; position: relative; height: clamp(280px, 48vw, 460px); background: linear-gradient(135deg, #004995 0%, #03032e 100%); overflow: hidden; }
   .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .carousel-caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 28px 24px; background: linear-gradient(to top, rgba(3,3,46,0.95) 0%, rgba(3,3,46,0.6) 50%, transparent 100%); }
-  .carousel-year { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758; border: 1px solid rgba(246,183,88,0.6); padding: 3px 10px; border-radius: 999px; margin-bottom: 10px; }
+  .carousel-year { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 18px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758; border: 3px solid rgba(246,183,88,0.6); padding: 4px 15px; border-radius: 999px; margin-bottom: 10px; }
   .carousel-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; margin-bottom: 4px; }
   .carousel-desc { font-size: 15px; color: rgba(240,240,234,0.85); max-width: 600px; }
   .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(3,3,46,0.7); border: 1px solid rgba(86,174,255,0.5); color: #f0f0ea; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; transition: all 0.2s; }
@@ -76,7 +76,7 @@
   .stat-label { font-size: 13px; color: rgba(240,240,234,0.75); position: relative; }
 
   /* QUOTE CARDS */
-  .quote-card { flex: 1 1 340px; position: relative; overflow: hidden; border-radius: 18px; padding: 48px 36px; border: 1px solid rgba(246,183,88,0.3); background-size: cover; background-position: center; min-height: 280px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+  .quote-card { flex: 1 1 340px; position: relative; overflow: hidden; border-radius: 18px; padding: 48px 36px; border: 1px solid rgba(246,183,88,0.3); background-size: cover; background-position: center; min-height: 280px; display: flex; flex-direction: column; justify-content: flex-start; gap: 16px; }
   .quote-card.quran { background-image: linear-gradient(160deg, rgba(3,3,46,0.88) 0%, rgba(0,73,149,0.85) 100%), url('images/quote-quran.jpg'); }
   .quote-card.hadith { background-image: linear-gradient(160deg, rgba(3,3,46,0.88) 0%, rgba(120,80,20,0.7) 100%), url('images/quote-hadith.jpg'); }
   .quote-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(246,183,88,0.15); border: 1px solid rgba(246,183,88,0.4); display: flex; align-items: center; justify-content: center; }
@@ -444,9 +444,9 @@ const CAMPAIGN_CONFIG = {
 
 // CAROUSEL
 const SLIDES = [
-  { src: 'images/ramadan-2024.jpg', year: '2024', title: 'Our First Ramadan', desc: '800+ grocery packages hand-delivered to local families across the community.' },
-  { src: 'images/ramadan-2025.jpg', year: '2025', title: 'Growing Together', desc: '1,500+ families supported with a full month of essential food supplies.' },
-  { src: 'images/ramadan-2026.jpg', year: '2026', title: 'A Record Year', desc: '3,000+ packages packed and delivered before Eid — our largest campaign yet.' }
+  { src: 'images/ramadan-banner-2026.png', year: '2026', title: 'A Record Year', desc: '19 packages packed and delivered before Eid — our largest campaign yet.' },
+  { src: 'images/ramadan-banner-2025.png', year: '2025', title: 'Growing Together', desc: '11 families supported with a full month of essential food supplies.' },
+  { src: 'images/ramadan-banner-2024.png', year: '2024', title: 'First Successful Ramadan', desc: '14 grocery packages hand-delivered to families across the community.' }
 ];
 
 const track = document.getElementById('carouselTrack');
