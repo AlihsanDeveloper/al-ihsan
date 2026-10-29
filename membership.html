@@ -39,6 +39,9 @@
   .tc-scroll::-webkit-scrollbar-thumb:hover { background: rgba(86,174,255,0.6); }
 </style>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="edb3beda-67c8-4ea9-8118-8fb19986c4d9"></script>
+
+  <!-- Cloudflare Turnstile -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 <div style="width: 100%; background: #060644; color: #f0f0ea; font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.6">
@@ -173,6 +176,8 @@
           <input type="email" id="general-email" placeholder="example@mail.com" required>
           <button type="button" id="general-send-btn" style="padding: 0 16px; background: #56aeff; color: #060644; border: none; border-radius: 10px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; cursor: pointer; white-space: nowrap; transition: 0.2s;">Send Code</button>
         </div>
+        <!-- Cloudflare Turnstile Widget -->
+        <div class="cf-turnstile" style="margin-top: 12px;" data-sitekey="0x4AAAAAAFrGsbYaQsISk0TJ" data-callback="onCaptchaSuccess"></div>
       </div>
 
       <div id="general-otp-section" style="display: none;">
@@ -186,7 +191,7 @@
 
       <div>
         <label class="form-label">Address <span class="req-star">*</span></label>
-        <textarea name="address" rows="3" placeholder="e.g., House 12, Road 3, Chittagong" required></textarea>
+        <textarea name="address" rows="3" placeholder="Plot-2A, 138 Gulshan Ave, Dhaka 1212" required></textarea>
       </div>
 
       <div>
@@ -222,6 +227,7 @@
           <input type="checkbox" id="general-terms" required style="width:20px; height:20px; margin:0; accent-color: #56aeff;">
           <span style="color: rgba(240,240,234,0.9);">I Agree with the Terms & Conditions</span>
         </label>
+
       </div>
 
       <button id="general-submit-btn" class="btn-form-submit" type="submit" disabled style="margin-top: 8px; padding: 15px 28px; border-radius: 10px; border: none; background: #333366; color: #888888; font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; cursor: not-allowed; transition: background 0.2s, color 0.2s;">Submit General Membership</button>
@@ -244,6 +250,8 @@
           <input type="email" id="privacy-email" placeholder="example@mail.com" required>
           <button type="button" id="privacy-send-btn" style="padding: 0 16px; background: #56aeff; color: #060644; border: none; border-radius: 10px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; cursor: pointer; white-space: nowrap; transition: 0.2s;">Send Code</button>
         </div>
+        <!-- Cloudflare Turnstile Widget -->
+        <div class="cf-turnstile" style="margin-top: 12px;" data-sitekey="0x4AAAAAAFrGsbYaQsISk0TJ" data-callback="onCaptchaSuccess"></div>
       </div>
 
       <div id="privacy-otp-section" style="display: none;">
@@ -282,6 +290,7 @@
           <input type="checkbox" id="privacy-terms" required style="width:20px; height:20px; margin:0; accent-color: #56aeff;">
           <span style="color: rgba(240,240,234,0.9);">I Agree with the Terms & Conditions</span>
         </label>
+
       </div>
 
       <button id="privacy-submit-btn" class="btn-form-submit" type="submit" disabled style="margin-top: 8px; padding: 15px 28px; border-radius: 10px; border: none; background: #333366; color: #888888; font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; cursor: not-allowed; transition: background 0.2s, color 0.2s;">Submit Privacy Membership</button>
@@ -375,6 +384,12 @@
 <!-- SCRIPT 2: SUPABASE AUTH & APPSCRIPT SUBMIT -->
 <!-- ========================================== -->
 <script>
+  // Turnstile Input Injection
+  function getTurnstileToken() {
+  const input = document.querySelector('input[name="cf-turnstile-response"]');
+  return input ? input.value : null;
+}
+
   document.addEventListener("DOMContentLoaded", () => {
     // 1. Initialize Supabase
     const SUPABASE_URL = 'https://ukihcsmwffwlacnaejmh.supabase.co';
@@ -400,25 +415,35 @@
       let isVerified = false;
       let accessToken = "";
 
-      // --- Send OTP ---
+            // --- Send OTP ---
       sendBtn.addEventListener('click', async () => {
         const email = emailInput.value.trim();
         if (!email) return alert('Please enter your email address first.');
 
-        // 1. Disable button while processing
+        // 1. Get the Turnstile token
+        const captchaToken = getTurnstileToken();
+
+        if (!captchaToken) {
+          return alert('Please complete the CAPTCHA verification.');
+        }
+
+        // 2. Disable button while processing
         sendBtn.textContent = 'Sending...';
         sendBtn.disabled = true;
 
         try {
           const { error } = await supabaseClient.auth.signInWithOtp({
             email: email,
-            options: { shouldCreateUser: true }
+            options: {
+              shouldCreateUser: true,
+              captchaToken: captchaToken // ⚡ CRITICAL: Pass the token to Supabase!
+            }
           });
 
           // If Supabase returns an error object, throw it to the catch block
           if (error) throw error;
 
-          // 2. Success! Reveal the OTP field and start the countdown
+          // 3. Success! Reveal the OTP field and start the countdown
           otpSection.style.display = 'block';
 
           let countdown = 120;
@@ -437,13 +462,18 @@
             }
           }, 1000);
 
+          // 4. Reset the Turnstile widget for the next attempt
+          if (window.turnstile) window.turnstile.reset();
+
         } catch (err) {
-          // 3. If anything goes wrong (network error, rate limit, etc.)
-          // Reset the button immediately so they can try again
+          // 5. If anything goes wrong (network error, rate limit, etc.)
           alert('Error sending code: ' + (err.message || 'Please try again.'));
           sendBtn.textContent = 'Send Code';
           sendBtn.disabled = false;
           sendBtn.style.background = '#56aeff';
+
+          // 6. Reset Turnstile on error as well so they can try again
+          if (window.turnstile) window.turnstile.reset();
         }
       });
 
