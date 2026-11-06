@@ -253,6 +253,16 @@
   /* 8. Typography sizes */
   h1 { font-size: 32px !important; line-height: 1.1 !important; }
   h2 { font-size: 26px !important; }
+
+  .email-input-group {
+    flex-direction: column !important;
+  }
+
+  .email-input-group button {
+    width: 100% !important;
+    padding: 14px 16px !important;
+  }
+
 }
 
 /* =========================================
@@ -309,43 +319,5 @@
   .nav-links-wrapper a.btn-glow-blue {
     margin-top: 8px;
     padding: 12px 20px !important; color: #03032e;
-  }
-}
-
-/* ═══════════════════════ CHATBOT OVERRIDES ═══════════════════════ */
-/* Forces the widget to stay fixed in the bottom right corner */
-.elfsight-app-8563a37b-48f1-43d2-bbb6-d3e281002309 {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 9999; /* Keeps it above all other content */
-}
-
-/* On mobile devices, bring it slightly closer to the edges */
-@media (max-width: 768px) {
-  .elfsight-app-8563a37b-48f1-43d2-bbb6-d3e281002309 {
-    bottom: 16px;
-    right: 16px;
-  }
-}
-
-/* ═══════════════════════ MOBILE CHATBOT OVERRIDE ═══════════════════════ */
-@media (max-width: 768px) {
-  .elfsight-app-8563a37b-48f1-43d2-bbb6-d3e281002309 {
-    max-height: 90vh !important; /* Keeps it from touching the very top edge */
-    border-radius: 16px !important; /* Gives it rounded corners on mobile */
-    bottom: 10px !important;
-    right: 10px !important;
-    left: 10px !important; /* Centers it with a small margin on the sides */
-  }
-}
-
-/* Fix for the legal pages sidebar */
-.desktop-sidebar {
-  display: none; /* Hidden on mobile by default */
-}
-@media (min-width: 900px) {
-  .desktop-sidebar {
-    display: block; /* Shown on desktop */
   }
 }

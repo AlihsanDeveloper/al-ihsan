@@ -52,48 +52,227 @@
   }
 
   /* CAROUSEL */
-  .carousel { position: relative; width: 100%; }
-  .carousel-viewport { overflow: hidden; border-radius: 18px; border: 1px solid rgba(86,174,255,0.25); }
-  .carousel-track { display: flex; transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1); }
-  .carousel-slide { min-width: 100%; position: relative; height: clamp(280px, 48vw, 460px); background: linear-gradient(135deg, #004995 0%, #03032e 100%); overflow: hidden; }
-  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .carousel-caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 28px 24px; background: linear-gradient(to top, rgba(3,3,46,0.95) 0%, rgba(3,3,46,0.6) 50%, transparent 100%); }
-  .carousel-year { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 18px; letter-spacing: 0.14em; text-transform: uppercase; color: #f6b758; border: 3px solid rgba(246,183,88,0.6); padding: 4px 15px; border-radius: 999px; margin-bottom: 10px; }
-  .carousel-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(20px, 3vw, 28px); font-weight: 700; margin-bottom: 4px; }
-  .carousel-desc { font-size: 15px; color: rgba(240,240,234,0.85); max-width: 600px; }
-  .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(3,3,46,0.7); border: 1px solid rgba(86,174,255,0.5); color: #f0f0ea; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; transition: all 0.2s; }
-  .carousel-arrow:hover { background: #56aeff; color: #060644; }
+  .carousel {
+    position: relative;
+    width: 100%;
+  }
+  .carousel-viewport {
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid rgba(86,174,255,0.25);
+  }
+  .carousel-track { display: flex;
+    transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .carousel-slide { min-width: 100%;
+    position: relative;
+    aspect-ratio: 2 / 1; /* Keeps it widescreen on all devices */
+    max-height: 460px;    /* Prevents it from getting too huge on desktop */
+    background: linear-gradient(135deg, #004995 0%, #03032e 100%);
+    overflow: hidden;
+  }
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .carousel-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 48px 28px 24px;
+    background: linear-gradient(to top, rgba(3,3,46,0.95) 0%, rgba(3,3,46,0.6) 50%, transparent 100%);
+  }
+  .carousel-year {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(12px, 2vw, 18px); /* Automatically shrinks on mobile */
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #f6b758;
+    border: 3px solid rgba(246,183,88,0.6); /* Thinner border looks cleaner */
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .carousel-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .carousel-desc {
+    font-size: 15px;
+    color: rgba(240,240,234,0.85);
+    max-width: 600px;
+  }
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(3,3,46,0.7);
+    border: 1px solid rgba(86,174,255,0.5);
+    color: #f0f0ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.2s;
+  }
+  .carousel-arrow:hover {
+    background: #56aeff;
+    color: #060644; }
   .carousel-arrow.prev { left: 14px; }
+
   .carousel-arrow.next { right: 14px; }
-  .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
-  .carousel-dot { width: 9px; height: 9px; border-radius: 50%; border: none; background: rgba(86,174,255,0.3); cursor: pointer; transition: all 0.2s; padding: 0; }
-  .carousel-dot.active { background: #56aeff; width: 24px; border-radius: 999px; }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .carousel-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(86,174,255,0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+  }
+  .carousel-dot.active {
+    background: #56aeff;
+    width: 24px;
+    border-radius: 999px;
+  }
 
   /* STAT CARDS */
-  .stat-card { padding: 24px; border: 1px solid rgba(246,183,88,0.3); border-radius: 16px; background: linear-gradient(135deg, rgba(246,183,88,0.08) 0%, rgba(0,73,149,0.15) 100%); position: relative; overflow: hidden; }
-  .stat-card::before { content: ''; position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; border-radius: 50%; background: rgba(246,183,88,0.08); }
-  .stat-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(28px, 3vw, 36px); color: #f6b758; line-height: 1.1; margin-bottom: 4px; position: relative; }
-  .stat-label { font-size: 13px; color: rgba(240,240,234,0.75); position: relative; }
+  .stat-card {
+    padding: 24px;
+    border: 1px solid rgba(246,183,88,0.3);
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(246,183,88,0.08) 0%, rgba(0,73,149,0.15) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(246,183,88,0.08);
+  }
+  .stat-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(28px, 3vw, 36px); color: #f6b758;
+    line-height: 1.1;
+    margin-bottom: 4px;
+    position: relative;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: rgba(240,240,234,0.75);
+    position: relative;
+  }
 
   /* QUOTE CARDS */
-  .quote-card { flex: 1 1 340px; position: relative; overflow: hidden; border-radius: 18px; padding: 48px 36px; border: 1px solid rgba(246,183,88,0.3); background-size: cover; background-position: center; min-height: 280px; display: flex; flex-direction: column; justify-content: flex-start; gap: 16px; }
+  .quote-card {
+    flex: 1 1 340px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    padding: 48px 36px;
+    border: 1px solid rgba(246,183,88,0.3);
+    background-size: cover;
+    background-position: center;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 16px;
+  }
   .quote-card.quran { background-image: linear-gradient(160deg, rgba(3,3,46,0.88) 0%, rgba(0,73,149,0.85) 100%), url('images/quote-quran.jpg'); }
+
   .quote-card.hadith { background-image: linear-gradient(160deg, rgba(3,3,46,0.88) 0%, rgba(120,80,20,0.7) 100%), url('images/quote-hadith.jpg'); }
-  .quote-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(246,183,88,0.15); border: 1px solid rgba(246,183,88,0.4); display: flex; align-items: center; justify-content: center; }
-  .quote-text { font-family: 'Space Grotesk', sans-serif; font-size: clamp(18px, 2vw, 22px); line-height: 1.45; font-weight: 500; color: #f0f0ea; }
-  .quote-ref { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #f6b758; }
+
+  .quote-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(246,183,88,0.15);
+    border: 1px solid rgba(246,183,88,0.4);
+    display: flex; align-items: center;
+    justify-content: center;
+  }
+
+  .quote-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(18px, 2vw, 22px);
+    line-height: 1.45;
+    font-weight: 500;
+    color: #f0f0ea;
+  }
+
+  .quote-ref {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #f6b758;
+  }
 
   /* HOW IT WORKS */
-  .step-card { flex: 1 1 220px; padding: 24px 22px; border: 1px solid rgba(86,174,255,0.22); border-radius: 14px; background: rgba(6,6,68,0.7); display: flex; flex-direction: column; gap: 10px; }
-  .step-num { font-family: 'JetBrains Mono', monospace; font-size: 22px; color: #56aeff; }
-  .step-title { font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700; }
-  .step-desc { font-size: 14.5px; color: rgba(240,240,234,0.75); }
+  .step-card {
+    flex: 1 1 220px;
+    padding: 24px 22px;
+    border: 1px solid rgba(86,174,255,0.22);
+    border-radius: 14px;
+    background: rgba(6,6,68,0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    color: #56aeff;
+  }
+  .step-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+  }
+  .step-desc {
+    font-size: 14.5px;
+    color: rgba(240,240,234,0.75);
+  }
 
   /* SCROLL ARROW */
-  @keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
-  .scroll-arrow { display: inline-block; animation: bounceDown 1.6s infinite; }
+  @keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+  .scroll-arrow {
+    display: inline-block;
+    animation: bounceDown 1.6s infinite;
+  }
+
 </style>
+
   <script defer src="https://cloud.umami.is/script.js" data-website-id="edb3beda-67c8-4ea9-8118-8fb19986c4d9"></script>
+
 </head>
 <body class="campaign-active">
 
